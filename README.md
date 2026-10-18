@@ -3,7 +3,7 @@
 A hand-coded, neon-dark portfolio for **Haseeb** — BS Artificial Intelligence student at **Quest University, Karachi**.
 
 Built with plain **HTML, CSS and JavaScript**. No frameworks, no build step or npm install — open `index.html` and it works; the BOM app’s required libraries are bundled locally.
-Every button is live: the projects are **real working apps** that open inside the project popup, and the résumé is a real, printable document.
+The two featured projects are **BOM-SOFTWARE** and this portfolio. BOM-SOFTWARE opens as an interactive live demo in the project popup, and the résumé is a real, printable document.
 
 ---
 
@@ -14,7 +14,7 @@ Every button is live: the projects are **real working apps** that open inside th
 | **Hero** | Script "Hello, I'm" + a **liquid-glass terminal** with a live-typing shell prompt and an **anime girl who blinks** on top of it, typing tagline, live stat counters, floating tech chips |
 | **About** | Who I am / What I do / What I love + quick-facts cards |
 | **Skills** | Tag clouds, animated proficiency bars, human-skill section |
-| **Projects** | 6 cards → click any card for a **popup case study** with an **embedded live demo** you can actually use |
+| **Projects** | 2 cards — BOM-SOFTWARE and this portfolio — with a **popup case study** for each and a live BOM demo |
 | **Education** | Animated timeline: BS AI → DIT → High School → short courses |
 | **Experience** | Internship (store ops, Shopify, inventory, complaints, invoices) + self-taught dev work |
 | **Contact** | Working contact form (opens the visitor's mail client with a pre-filled message), email, GitHub, LinkedIn, location |
@@ -22,15 +22,12 @@ Every button is live: the projects are **real working apps** that open inside th
 | **Motion** | Scroll reveals from every direction, particle canvas, magnetic buttons, 3D card tilt, cursor light, marquee, breathing glows |
 | **Extras** | Dark ⇄ light theme (remembered), scroll-spy nav, scroll-progress bar, back-to-top, mobile drawer, full keyboard support, `prefers-reduced-motion` support |
 
-### Live demo apps (all real, all working)
+### Featured projects (2)
 
-| App | File | What it does |
+| Project | File | What it is |
 |---|---|---|
-| **BOM & Production Control** | `bom-software/app/index.html` | Full BOM-SOFTWARE live demo: dashboard, BOM, production, sales, inventory, raw materials, JSON backup/restore, Excel exports and invoice PDFs |
-| **Task Manager (Kanban)** | `task.html` | Drag & drop board with priorities, labels, filters, progress ring, LocalStorage |
-| **AI Prompt Generator** | `prompts.html` | 18 prompt templates across 6 categories, tone/depth controls, copy-to-clipboard, history |
-| **Store Operations Hub** | `shop.html` | Orders pipeline, inventory, complaint log, revenue charts, printable invoices |
-| **Teaching & Notes Hub** | `notes.html` | Searchable notes library + quick-reference cheat sheets, reading view |
+| **BOM-SOFTWARE** | `bom-software/app/index.html` | Dashboard, BOM, production, sales, inventory, raw materials, JSON backup/restore, Excel exports and invoice PDFs |
+| **Portfolio Website** | `index.html` | This hand-coded, responsive portfolio with its own project case studies and interactive BOM-SOFTWARE demo |
 
 The BOM demo uses the original app UI and bundled assets from [BOM-SOFTWARE](https://github.com/ITS-ME-HASEEB/BOM-SOFTWARE). In this portfolio, its Electron storage bridge falls back to browser LocalStorage and browser downloads; the Windows repository remains unchanged.
 
@@ -101,14 +98,9 @@ The result has **zero screen bleed** — no magenta fringe around the hair.
 ├── bom.html              # compatibility redirect to the new BOM-SOFTWARE demo
 ├── bom-software/
 │   └── app/              # BOM-SOFTWARE browser demo, bundled assets and libraries
-├── task.html             # live demo — Kanban task manager
-├── prompts.html          # live demo — AI prompt generator
-├── shop.html             # live demo — store operations hub
-├── notes.html            # live demo — teaching & notes hub
 ├── css/
 │   ├── fonts.css         # self-hosted Sora / Inter / Dancing Script / JetBrains Mono
-│   ├── style.css         # portfolio design system
-│   └── demo.css          # shared styles for the demo apps
+│   └── style.css         # portfolio design system
 ├── js/
 │   ├── config.js         # ✏️ EDIT ME — email, GitHub, Instagram, LinkedIn, résumé path
 │   └── main.js           # animations, modal, canvas, theme, nav, form
@@ -159,7 +151,7 @@ python3 -m http.server 8080
 # → http://localhost:8080
 ```
 
-Opening `index.html` directly from the file system also works, except the project popups embed live demos in an `iframe`, which browsers block for `file://` pages — use a local server for the full experience.
+Opening `index.html` directly from the file system also works, except the BOM project popup embeds the live demo in an `iframe`, which browsers block for `file://` pages — use a local server for the full experience.
 
 ---
 
@@ -180,7 +172,7 @@ Opening `index.html` directly from the file system also works, except the projec
 - Semantic landmarks (`header`, `nav`, `main`, `section`, `footer`), labelled inputs, `aria` on the modal
 - Full keyboard support: `Tab` navigation, `Enter`/`Space` on project cards, `Esc` closes the modal and drawer
 - Visible focus states, `prefers-reduced-motion` respected, text contrast checked in both themes
-- No frameworks, no trackers, no external requests — the whole site is a few hundred KB and loads instantly
+- No trackers or external requests. The portfolio shell has no build step; the BOM demo and its required libraries are bundled locally.
 - Animations run on `IntersectionObserver` + `requestAnimationFrame` (never on scroll handlers), so scrolling stays smooth
 
 ---
