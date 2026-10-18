@@ -6,6 +6,7 @@
 window.SITE_CONFIG = {
   email: 'hello@haseeb.dev',                       // ← your real Gmail address
   github: 'https://github.com/ITS-ME-HASEEB',      // ← your GitHub profile
+  instagram: 'https://www.instagram.com/ITS_ME_HASEEB',  // ← your Instagram
   linkedin: 'https://www.linkedin.com/in/its-me-haseeb', // ← your LinkedIn profile
   resume: 'resume.html'                            // ← path to your résumé page
 };
