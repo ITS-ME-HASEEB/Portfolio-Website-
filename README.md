@@ -2,7 +2,7 @@
 
 A hand-coded, neon-dark portfolio for **Haseeb** — BS Artificial Intelligence student at **Quest University, Karachi**.
 
-Built with plain **HTML, CSS and JavaScript**. No frameworks, no build step, no dependencies — open `index.html` and it works.
+Built with plain **HTML, CSS and JavaScript**. No frameworks, no build step or npm install — open `index.html` and it works; the BOM app’s required libraries are bundled locally.
 Every button is live: the projects are **real working apps** that open inside the project popup, and the résumé is a real, printable document.
 
 ---
@@ -26,11 +26,13 @@ Every button is live: the projects are **real working apps** that open inside th
 
 | App | File | What it does |
 |---|---|---|
-| **BOM Management System** | `bom.html` | Bill of materials: add/edit/delete parts, live low-stock alerts, stock value, category chart, search/filter/sort, CSV export, LocalStorage |
+| **BOM & Production Control** | `bom-software/app/index.html` | Full BOM-SOFTWARE live demo: dashboard, BOM, production, sales, inventory, raw materials, JSON backup/restore, Excel exports and invoice PDFs |
 | **Task Manager (Kanban)** | `task.html` | Drag & drop board with priorities, labels, filters, progress ring, LocalStorage |
 | **AI Prompt Generator** | `prompts.html` | 18 prompt templates across 6 categories, tone/depth controls, copy-to-clipboard, history |
 | **Store Operations Hub** | `shop.html` | Orders pipeline, inventory, complaint log, revenue charts, printable invoices |
 | **Teaching & Notes Hub** | `notes.html` | Searchable notes library + quick-reference cheat sheets, reading view |
+
+The BOM demo uses the original app UI and bundled assets from [BOM-SOFTWARE](https://github.com/ITS-ME-HASEEB/BOM-SOFTWARE). In this portfolio, its Electron storage bridge falls back to browser LocalStorage and browser downloads; the Windows repository remains unchanged.
 
 ---
 
@@ -96,7 +98,9 @@ The result has **zero screen bleed** — no magenta fringe around the hair.
 .
 ├── index.html            # the portfolio
 ├── resume.html           # printable résumé
-├── bom.html              # live demo — Bill of Materials system
+├── bom.html              # compatibility redirect to the new BOM-SOFTWARE demo
+├── bom-software/
+│   └── app/              # BOM-SOFTWARE browser demo, bundled assets and libraries
 ├── task.html             # live demo — Kanban task manager
 ├── prompts.html          # live demo — AI prompt generator
 ├── shop.html             # live demo — store operations hub
