@@ -465,7 +465,7 @@ html[data-theme="light"] .project:hover .project__body h3{color:#7c3aed}
 .link-chip{
   display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .75rem;border-radius:9px;
   font-size:.78rem;font-weight:600;border:1px solid var(--border);color:var(--text-2);background:var(--surface);
-  transition:all .3s var(--ease);
+  transition:all .3s var(--ease);text-decoration:none;
 }
 .link-chip .ico{width:14px;height:14px}
 .project:hover .link-chip{color:var(--text);border-color:var(--border-strong)}

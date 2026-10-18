@@ -700,7 +700,10 @@
     }
 
     $$('[data-project]').forEach((card) => {
-      card.addEventListener('click', () => open(card.dataset.project));
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a[data-no-card]')) return; // the real links act on their own
+        open(card.dataset.project);
+      });
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card.dataset.project); }
       });
