@@ -25,32 +25,33 @@
      --------------------------------------------------------- */
   const PROJECTS = {
     bom: {
-      title: 'BOM Management System',
-      subtitle: 'Bill of Materials · inventory control · live web app',
+      title: 'BOM & Production Control',
+      subtitle: 'BOM · production · sales & inventory · live browser demo',
       image: 'assets/img/project-bom.webp',
-      tags: ['HTML5', 'CSS3', 'JavaScript', 'LocalStorage', 'Data tables'],
+      tags: ['Electron', 'JavaScript', 'Offline-first', 'ExcelJS', 'PDF invoices'],
       overview:
-        'A working Bill of Materials system I built to replace the messy spreadsheets we used for stock. It keeps every part in one table with quantity, unit cost, reorder level and supplier, then instantly tells you which items are running low and what the assembly is really costing.',
+        'The full BOM-SOFTWARE business workflow app: manage bills of materials, record production and sales, track inventory and raw-material usage, and review activity from a single dashboard. The Windows release is an offline Electron app; this portfolio demo runs the same app UI in a browser and stores its workspace locally.',
       features: [
-        'Add, edit and delete parts with live validation',
-        'Automatic status badge: In stock / Low stock / Out of stock',
-        'Instant search plus category and “low stock only” filters',
-        'Dashboard stats: total parts, stock value, low-stock count, categories',
-        'Category breakdown chart drawn straight from the data',
-        'Everything persists in the browser with LocalStorage',
-        'Export the whole inventory to CSV with one click'
+        'Dashboard with operational summaries and date-range filters',
+        'BOM system for managing products and their material requirements',
+        'Production log and sales workflows with searchable records',
+        'Inventory transactions and raw-material usage tracking',
+        'Styled Excel exports for BOM, production, sales, inventory, dashboard and raw-material usage',
+        'Invoice PDFs generated from the supplied template',
+        'JSON backup and restore shared between the browser demo and Windows app',
+        'Offline-first: no login or cloud account required'
       ],
       build:
-        'Built with plain HTML, CSS and JavaScript — no framework and no backend, so it runs anywhere. The data model is a single array of part objects; every change re-renders the table, the stats and the chart from the same source of truth, which keeps the numbers honest. State is serialised to LocalStorage on every mutation so nothing is lost on refresh.',
+        'Adapted from the BOM-SOFTWARE repository. The Windows build uses Electron with a preload bridge to keep data in a local JSON file; this static browser demo uses the app’s built-in LocalStorage fallback. Both use the same workspace format, so JSON backups can move between them. ExcelJS and pdf-lib power the workbook and invoice exports.',
       learn: [
-        'How to structure a small app around one source of truth',
-        'Rendering tables and charts with plain DOM APIs',
-        'Persisting state safely with LocalStorage and JSON',
-        'Designing forms that validate before they save',
-        'Thinking like the person who actually uses the inventory'
+        'Designing an offline-first app across desktop and browser environments',
+        'Keeping persistence behind a small platform-specific bridge',
+        'Creating portable JSON backups for cross-platform data transfer',
+        'Generating formatted Excel workbooks and invoice PDFs',
+        'Turning a business workflow into a connected set of tools'
       ],
-      demo: 'bom.html',
-      code: CONFIG.github
+      demo: 'bom-software/app/index.html',
+      code: 'https://github.com/ITS-ME-HASEEB/BOM-SOFTWARE'
     },
     task: {
       title: 'Task Manager (Kanban)',
@@ -199,7 +200,7 @@
     const setText = (sel, val) => $$(sel).forEach((el) => { el.textContent = val; });
 
     setAttr('a[href^="mailto:"]', 'href', 'mailto:' + CONFIG.email);
-    setAttr('a[href*="github.com"]', 'href', CONFIG.github);
+    setAttr('a[href*="github.com"]:not([data-no-config])', 'href', CONFIG.github);
     setAttr('a[href*="linkedin.com"]', 'href', CONFIG.linkedin);
     setAttr('a[href*="instagram.com"]', 'href', CONFIG.instagram);
     setAttr('a[href$="resume.html"]', 'href', CONFIG.resume);
