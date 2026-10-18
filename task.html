@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Task Manager (Kanban) — Live Demo</title>
+<link rel="icon" href="assets/favicon.svg" />
+<link rel="stylesheet" href="css/fonts.css" />
+<link rel="stylesheet" href="css/demo.css" />
+<style>
+  .board{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;align-items:start}
+  @media (max-width:1000px){.board{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.board{grid-template-columns:1fr}}
+  .col{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:.75rem;min-height:180px;transition:border-color .2s,background .2s}
+  .col.drag-over{border-color:var(--violet);background:rgba(168,85,247,.12);box-shadow:0 0 0 1px var(--violet) inset}
+  .col__head{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;padding:0 .25rem}
+  .col__name{font-family:var(--display);font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase}
+  .col__count{margin-left:auto;font-size:.72rem;color:var(--muted);background:var(--surface2);border-radius:99px;padding:.1rem .5rem}
+  .col__dot{width:8px;height:8px;border-radius:50%}
+  .cards{display:grid;gap:.55rem;min-height:40px}
+  .task{
+    background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+    border:1px solid var(--border);border-radius:12px;padding:.7rem .8rem;cursor:grab;
+    transition:transform .2s,box-shadow .2s,opacity .2s;border-left:3px solid var(--violet);
+  }
+  .task:hover{transform:translateY(-2px);box-shadow:0 12px 26px -16px rgba(139,92,246,.9)}
+  .task.dragging{opacity:.35;transform:rotate(1.5deg) scale(.98);cursor:grabbing}
+  .task__title{font-size:.88rem;font-weight:500;line-height:1.4}
+  .task__title.done{text-decoration:line-through;color:var(--muted)}
+  .task__meta{display:flex;align-items:center;gap:.45rem;margin-top:.5rem;flex-wrap:wrap}
+  .prio{padding:.1rem .5rem;border-radius:99px;font-size:.66rem;font-weight:700;letter-spacing:.06em}
+  .prio--high{color:var(--red);background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35)}
+  .prio--med{color:var(--amber);background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.35)}
+  .prio--low{color:var(--cyan);background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.35)}
+  .task__label{font-size:.66rem;color:var(--muted);background:var(--surface2);padding:.1rem .45rem;border-radius:6px}
+  .task__actions{display:flex;gap:.3rem;margin-left:auto}
+  .icon-btn{width:24px;height:24px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:.72rem;line-height:1;display:grid;place-items:center;transition:.2s}
+  .icon-btn:hover{color:#fff;border-color:var(--violet);background:rgba(168,85,247,.2)}
+  .icon-btn.del:hover{color:var(--red);border-color:var(--red);background:rgba(248,113,113,.15)}
+  .progress{display:flex;align-items:center;gap:.8rem;margin-bottom:1.1rem;padding:.9rem 1.1rem;border-radius:14px;background:var(--surface);border:1px solid var(--border)}
+  .ring{width:46px;height:46px;flex:none;transform:rotate(-90deg)}
+  .ring circle{fill:none;stroke-width:5;stroke-linecap:round}
+  .ring .bg{stroke:rgba(255,255,255,.08)}
+  .ring .fg{stroke:url(#ringGrad);transition:stroke-dashoffset .8s cubic-bezier(.16,1,.3,1)}
+  .progress__text b{font-family:var(--display)}
+  .quickadd{display:grid;grid-template-columns:1.6fr 1fr 1fr auto;gap:.6rem;margin-bottom:1.1rem}
+  @media (max-width:760px){.quickadd{grid-template-columns:1fr 1fr}}
+  .hint{font-size:.74rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="app app--wide">
+  <svg width="0" height="0" style="position:absolute">
+    <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/><stop offset="50%" stop-color="#d946ef"/><stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient></defs>
+  </svg>
+
+  <header class="topbar">
+    <div class="topbar__mark">
+      <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5" stroke-width="1.8"/><path d="M8 9v6M12 9v6M16 9v6" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <div class="topbar__brand">Task Manager</div>
+      <span class="topbar__sub">Kanban board · drag &amp; drop</span>
+    </div>
+    <div class="topbar__spacer"></div>
+    <div class="topbar__right">
+      <button class="btn btn--sm" id="sampleBtn">Load sample board</button>
+      <button class="btn btn--sm" id="clearBtn">Clear board</button>
+    </div>
+  </header>
+
+  <div class="progress">
+    <svg class="ring" viewBox="0 0 46 46">
+      <circle class="bg" cx="23" cy="23" r="19"></circle>
+      <circle class="fg" id="ringFg" cx="23" cy="23" r="19" stroke-dasharray="119.4" stroke-dashoffset="119.4"></circle>
+    </svg>
+    <div class="progress__text">
+      <b id="pctText">0%</b> <span class="muted small" id="progNote">0 of 0 tasks complete</span>
+    </div>
+    <div class="grow"></div>
+    <div class="field" style="max-width:230px;width:100%">
+      <input id="search" type="search" placeholder="Search tasks…" />
+    </div>
+    <div class="field" style="max-width:170px;width:100%">
+      <select id="prioFilter">
+        <option value="">All priorities</option>
+        <option value="high">High</option><option value="med">Medium</option><option value="low">Low</option>
+      </select>
+    </div>
+  </div>
+
+  <form class="quickadd" id="quickForm">
+    <div class="field"><label for="qTitle">New task</label><input id="qTitle" placeholder="e.g. Finish the BOM export button" required /></div>
+    <div class="field"><label for="qCol">Column</label>
+      <select id="qCol"><option value="backlog">Backlog</option><option value="todo">To Do</option><option value="doing">In Progress</option><option value="done">Done</option></select>
+    </div>
+    <div class="field"><label for="qPrio">Priority</label>
+      <select id="qPrio"><option value="med">Medium</option><option value="high">High</option><option value="low">Low</option></select>
+    </div>
+    <div class="field"><label>&nbsp;</label><button class="btn btn--primary" type="submit">+ Add</button></div>
+  </form>
+
+  <div class="board" id="board">
+    <section class="col" data-col="backlog"><div class="col__head"><span class="col__dot" style="background:#8a80ab"></span><span class="col__name">Backlog</span><span class="col__count" data-count="backlog">0</span></div><div class="cards" data-drop="backlog"></div></section>
+    <section class="col" data-col="todo"><div class="col__head"><span class="col__dot" style="background:#fbbf24"></span><span class="col__name">To Do</span><span class="col__count" data-count="todo">0</span></div><div class="cards" data-drop="todo"></div></section>
+    <section class="col" data-col="doing"><div class="col__head"><span class="col__dot" style="background:#22d3ee"></span><span class="col__name">In Progress</span><span class="col__count" data-count="doing">0</span></div><div class="cards" data-drop="doing"></div></section>
+    <section class="col" data-col="done"><div class="col__head"><span class="col__dot" style="background:#34d399"></span><span class="col__name">Done</span><span class="col__count" data-count="done">0</span></div><div class="cards" data-drop="done"></div></section>
+  </div>
+  <p class="hint" style="margin-top:.9rem">Tip: drag a card between columns. Everything is saved to your browser automatically.</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+  const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
+  const KEY='haseeb-kanban-v1';
+  const COLS=['backlog','todo','doing','done'];
+  const SAMPLE=[
+    {id:'t1',title:'Map out the BOM table columns',col:'done',prio:'high',label:'BOM'},
+    {id:'t2',title:'Build the low-stock alert logic',col:'done',prio:'med',label:'BOM'},
+    {id:'t3',title:'Add CSV export to the inventory',col:'doing',prio:'high',label:'BOM'},
+    {id:'t4',title:'Redesign the portfolio hero section',col:'doing',prio:'med',label:'Portfolio'},
+    {id:'t5',title:'Write the AI prompt template engine',col:'todo',prio:'high',label:'Prompts'},
+    {id:'t6',title:'Add invoice printing to store dashboard',col:'todo',prio:'med',label:'Shop'},
+    {id:'t7',title:'Learn CSS container queries',col:'backlog',prio:'low',label:'Learning'},
+    {id:'t8',title:'Practice SQL joins for my DB course',col:'backlog',prio:'med',label:'Study'},
+    {id:'t9',title:'Record a short CSS grid explainer video',col:'backlog',prio:'low',label:'Teaching'}
+  ];
+  let tasks=load();
+  function load(){
+    try{ const raw=localStorage.getItem(KEY); if(raw){const t=JSON.parse(raw); if(Array.isArray(t)&&t.length) return t;} }catch(e){}
+    return SAMPLE.map(t=>({...t}));
+  }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(tasks)); }catch(e){} }
+  const toastEl=$('#toast');
+  function toast(m){ toastEl.textContent=m; toastEl.classList.add('show'); clearTimeout(toastEl._t); toastEl._t=setTimeout(()=>toastEl.classList.remove('show'),2200); }
+  const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+  function render(){
+    const q=($('#search').value||'').toLowerCase().trim();
+    const pr=$('#prioFilter').value;
+    COLS.forEach(col=>{
+      const box=document.querySelector('[data-drop="'+col+'"]');
+      const items=tasks.filter(t=>t.col===col);
+      document.querySelector('[data-count="'+col+'"]').textContent=items.length;
+      box.innerHTML='';
+      items.filter(t=>{
+        if(pr && t.prio!==pr) return false;
+        if(q && !(t.title+' '+t.label).toLowerCase().includes(q)) return false;
+        return true;
+      }).forEach(t=>{
+        const el=document.createElement('article');
+        el.className='task'; el.draggable=true; el.dataset.id=t.id;
+        el.style.borderLeftColor = t.prio==='high'?'#f87171':t.prio==='med'?'#fbbf24':'#22d3ee';
+        el.innerHTML=
+          '<div class="task__title'+(t.col==='done'?' done':'')+'">'+esc(t.title)+'</div>'+
+          '<div class="task__meta">'+
+            '<span class="prio prio--'+t.prio+'">'+t.prio.toUpperCase()+'</span>'+
+            (t.label?'<span class="task__label">'+esc(t.label)+'</span>':'')+
+            '<div class="task__actions">'+
+              '<button class="icon-btn" data-toggle="'+t.id+'" title="Move to next column">→</button>'+
+              '<button class="icon-btn" data-edit="'+t.id+'" title="Rename">✎</button>'+
+              '<button class="icon-btn del" data-del="'+t.id+'" title="Delete">✕</button>'+
+            '</div>'+
+          '</div>';
+        box.appendChild(el);
+      });
+    });
+    // progress ring
+    const total=tasks.length, done=tasks.filter(t=>t.col==='done').length;
+    const pct= total? Math.round(done/total*100):0;
+    const circ=119.4;
+    $('#ringFg').style.strokeDashoffset = circ - (circ*pct/100);
+    $('#pctText').textContent=pct+'%';
+    $('#progNote').textContent=done+' of '+total+' tasks complete';
+  }
+
+  // quick add
+  $('#quickForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const title=$('#qTitle').value.trim();
+    if(!title) return;
+    tasks.push({id:'t'+Date.now().toString(36),title,col:$('#qCol').value,prio:$('#qPrio').value,label:'New'});
+    save(); render(); $('#qTitle').value=''; $('#qTitle').focus(); toast('Task added');
+  });
+
+  // card actions
+  $('#board').addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    const id=b.dataset.toggle||b.dataset.edit||b.dataset.del;
+    const t=tasks.find(x=>x.id===id); if(!t) return;
+    if(b.dataset.toggle){
+      const i=COLS.indexOf(t.col);
+      t.col=COLS[Math.min(i+1,COLS.length-1)];
+      save(); render(); toast('Moved to '+$('[data-col="'+t.col+'"] .col__name').textContent);
+    }else if(b.dataset.edit){
+      const v=prompt('Rename task',t.title);
+      if(v!==null && v.trim()){ t.title=v.trim(); save(); render(); }
+    }else if(b.dataset.del){
+      if(confirm('Delete this task?')){ tasks=tasks.filter(x=>x.id!==id); save(); render(); toast('Task deleted'); }
+    }
+  });
+
+  // drag & drop
+  let dragId=null;
+  $('#board').addEventListener('dragstart',e=>{
+    const card=e.target.closest('.task'); if(!card) return;
+    dragId=card.dataset.id; card.classList.add('dragging');
+    e.dataTransfer.effectAllowed='move';
+    try{ e.dataTransfer.setData('text/plain',dragId); }catch(err){}
+  });
+  $('#board').addEventListener('dragend',e=>{
+    const card=e.target.closest('.task'); if(card) card.classList.remove('dragging');
+    $$('.col').forEach(c=>c.classList.remove('drag-over'));
+  });
+  $$('.col').forEach(col=>{
+    col.addEventListener('dragover',e=>{ e.preventDefault(); e.dataTransfer.dropEffect='move'; col.classList.add('drag-over'); });
+    col.addEventListener('dragleave',()=>col.classList.remove('drag-over'));
+    col.addEventListener('drop',e=>{
+      e.preventDefault(); col.classList.remove('drag-over');
+      const id=dragId||e.dataTransfer.getData('text/plain');
+      const t=tasks.find(x=>x.id===id); if(!t) return;
+      t.col=col.dataset.col; save(); render(); toast('Moved to '+col.querySelector('.col__name').textContent);
+    });
+  });
+
+  $('#sampleBtn').addEventListener('click',()=>{ tasks=SAMPLE.map(t=>({...t})); save(); render(); toast('Sample board loaded'); });
+  $('#clearBtn').addEventListener('click',()=>{
+    if(confirm('Remove every task from the board?')){ tasks=[]; save(); render(); toast('Board cleared');
+      setTimeout(()=>{ tasks=SAMPLE.map(t=>({...t})); save(); render(); }, 1200);
+    }
+  });
+  $('#search').addEventListener('input',render);
+  $('#prioFilter').addEventListener('change',render);
+
+  render();
+})();
+</script>
+</body>
+</html>

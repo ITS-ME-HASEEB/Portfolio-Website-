@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Node (not used by the site, but just in case)
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
