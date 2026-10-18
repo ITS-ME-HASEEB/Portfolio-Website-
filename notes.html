@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Teaching &amp; Notes Hub — Live Demo</title>
+<link rel="icon" href="assets/favicon.svg" />
+<link rel="stylesheet" href="css/fonts.css" />
+<link rel="stylesheet" href="css/demo.css" />
+<style>
+  .notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:.9rem}
+  .note{
+    background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.015));
+    border:1px solid var(--border);border-radius:14px;padding:1rem;cursor:pointer;
+    display:flex;flex-direction:column;gap:.55rem;transition:all .3s cubic-bezier(.16,1,.3,1);
+  }
+  .note:hover{transform:translateY(-5px);border-color:var(--violet);box-shadow:0 18px 36px -20px rgba(139,92,246,.95)}
+  .note h3{font-size:.98rem;line-height:1.35}
+  .note p{font-size:.84rem;color:var(--text2);flex:1}
+  .note__meta{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+  .note__meta .badge{font-size:.64rem}
+  .reader{
+    position:fixed;inset:0;z-index:60;background:rgba(4,2,10,.85);backdrop-filter:blur(8px);
+    display:grid;place-items:center;padding:1rem;
+  }
+  .reader[hidden]{display:none}
+  .reader__box{
+    width:min(720px,100%);max-height:88vh;overflow:auto;border-radius:var(--radius);
+    background:linear-gradient(160deg,#150c2b,#0c0720);border:1px solid var(--border2);
+    box-shadow:0 40px 90px -30px #000;padding:1.5rem;animation:pop .34s cubic-bezier(.16,1,.3,1);
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.97)}}
+  .reader__box h3{font-size:1.3rem;margin-bottom:.4rem}
+  .reader__box pre{
+    white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,Menlo,monospace;
+    font-size:.85rem;line-height:1.8;color:#d9cff5;background:rgba(0,0,0,.3);
+    border:1px solid var(--border);border-radius:12px;padding:1rem;margin:1rem 0 0;
+  }
+  .chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+  .chip{
+    padding:.36rem .8rem;border-radius:99px;border:1px solid var(--border);background:var(--surface);
+    cursor:pointer;font-size:.78rem;color:var(--text2);transition:all .25s ease;
+  }
+  .chip:hover{border-color:var(--border2);color:#fff}
+  .chip.active{background:var(--grad-soft);border-color:var(--violet);color:#fff}
+  .sheet-note{position:fixed;top:1rem;right:1rem;z-index:70}
+  .cheat{display:grid;gap:.5rem}
+  .cheat__row{display:grid;grid-template-columns:150px 1fr;gap:.8rem;font-size:.84rem;align-items:baseline}
+  .cheat__row code{
+    font-family:ui-monospace,Menlo,monospace;font-size:.78rem;color:var(--violet2);
+    background:rgba(0,0,0,.3);padding:.15rem .45rem;border-radius:6px;border:1px solid var(--border);
+  }
+  .hero-strip{
+    display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+    padding:1.1rem 1.2rem;border-radius:var(--radius);margin-bottom:1.1rem;
+    background:var(--grad-soft);border:1px solid var(--border);
+  }
+  .hero-strip h2{font-size:1.2rem}
+  .hero-strip p{font-size:.86rem;color:var(--text2);flex:1;min-width:200px}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar__mark">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z" stroke-width="1.8"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5" stroke-width="1.8"/></svg>
+    </div>
+    <div>
+      <div class="topbar__brand">Teaching &amp; Notes Hub</div>
+      <span class="topbar__sub">The notes I use to teach — searchable</span>
+    </div>
+    <div class="topbar__spacer"></div>
+    <div class="topbar__right">
+      <button class="btn btn--sm" id="cheatBtn">Cheat sheets</button>
+    </div>
+  </header>
+
+  <div class="hero-strip">
+    <h2>Everything I teach, in one place</h2>
+    <p>Notes I rewrite from scratch every week for classmates — HTML, CSS, JavaScript, computer science and AI.</p>
+    <div class="field" style="min-width:230px"><input id="search" type="search" placeholder="Search notes and cheat sheets…" /></div>
+  </div>
+
+  <div class="chips" id="chips"></div>
+
+  <div class="notes" id="notes"></div>
+  <div id="empty" class="empty" hidden><b>Nothing found</b>Try a different word or clear the filter.</div>
+</div>
+
+<div class="reader" id="reader" hidden>
+  <div class="reader__box" id="readerBox"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+  const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
+  const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+  const NOTES=[
+    {id:'n1',cat:'HTML',title:'The structure of every web page',sum:'Doctype, html, head and body — what each one actually does and why the order matters.',level:'Beginner',time:4,
+     body:'Every page you will ever build follows the same skeleton.\n\nDOCTYPE\nThe very first line. It tells the browser "use modern HTML mode" instead of the old quirks mode that Internet Explorer used.\n\n<html lang="en">\nThe root element. The lang attribute matters for screen readers and for translation tools — always set it.\n\n<head>\nEverything the browser needs to know before it paints the page: the character set, the viewport, the title, the CSS link and any fonts.\n\n<body>\nEverything the visitor actually sees. Keep it semantic — one <main>, a <nav>, a <header>, a <footer> — and the accessibility comes for free.\n\nA quick checklist\n• Only ONE <h1> per page, then <h2> and <h3> in order\n• Alt text on every image, even if the image is decorative (then alt="")\n• Buttons for actions, <a> for navigation — never a div that "looks clickable"\n• Label every input, even if you hide the label with CSS'},
+
+    {id:'n2',cat:'CSS',title:'Flexbox vs Grid — when to use which',sum:'One line rule that removes the guesswork: 2 dimensions = Grid, 1 dimension = Flexbox.',level:'Beginner',time:6,
+     body:'The fastest way to remember it:\n• Grid is for LAYOUT (rows AND columns)\n• Flexbox is for ALIGNMENT (one direction at a time)\n\nSo a page header with a logo on the left and links on the right is Flexbox. A card grid with three columns and two rows is CSS Grid.\n\nFlexbox in four lines\ndisplay: flex;\njustify-content: space-between;  /* main axis */\ngap: 1rem;\nalign-items: center;          /* cross axis */\n\nGrid in four lines\ndisplay: grid;\ngrid-template-columns: repeat(auto-fit, minmax(260px, 1fr));\ngap: 1.2rem;\n\nThat repeat(auto-fit, minmax(...)) line is the single most useful CSS I know: it makes a responsive card grid with no media queries at all.\n\nCommon trap\nIf a flex child will not shrink, it is usually because you set a fixed width on it. Use min-width: 0 on the child or flex: 1 1 auto on the container.'},
+
+    {id:'n3',cat:'JavaScript',title:'Array methods you will use every day',sum:'map, filter, reduce and the rest — with a real example for each.',level:'Beginner',time:7,
+     body:'The array methods that replace most of my loops.\n\nmap — transform every item\nconst prices = [100, 250, 80];\nconst withTax = prices.map(p => p * 1.05);\n\nfilter — keep only what matches\nconst cheap = prices.filter(p => p < 150);\n\nreduce — combine everything into one value\nconst total = prices.reduce((sum, p) => sum + p, 0);\n\nfind — first match only\nconst firstCheap = prices.find(p => p < 150);\n\nsort — remember to copy first\nconst sorted = [...prices].sort((a, b) => a - b);  // the spread avoids mutating the original\n\nWhen to use what\n• You need a new array -> map\n• You need fewer items -> filter\n• You need one number -> reduce\n• Two or more of the above chained -> map().filter().reduce()\n\nChaining example\nconst total = orders\n  .filter(o => o.status === "delivered")\n  .map(o => o.total)\n  .reduce((sum, t) => sum + t, 0);'},
+
+    {id:'n4',cat:'JavaScript',title:'The event loop, in plain language',sum:'Why a setTimeout(0) still runs after the current code, and where async/await fits.',level:'Intermediate',time:6,
+     body:'Think of JavaScript as a single-lane road. Code runs top to bottom, and a task either runs to completion or waits.\n\nThe call stack\nWhere code runs right now. If you call a function inside a function inside a function, they stack on top of each other.\n\nThe task queue\nWhere callbacks wait their turn. setTimeout, fetch and events all land here.\n\nThe event loop\nIts whole job: run the call stack, and when the stack is empty, take the next task from the queue.\n\nThat is why this logs 1, 3, 2:\nconsole.log(1);\nsetTimeout(() => console.log(2), 0);\nconsole.log(3);\n\nThe timeout of 0 does not mean "now" — it means "after the current code finishes".\n\nasync/await\nasync turns a function into one that returns a promise. await pauses that function until the promise settles, without blocking the whole page. The code still runs in order, but the waiting part is free.'},
+
+    {id:'n5',cat:'CSS',title:'CSS Grid areas — real page layouts',sum:'Define a layout once in CSS and place children by name. No absolute positioning.',level:'Intermediate',time:5,
+     body:'Grid areas let you describe an entire page layout in a few readable lines.\n\n.page {\n  display: grid;\n  grid-template-areas:\n    "header header header"\n    "side   main   main"\n    "foot   foot   foot";\n  grid-template-columns: 220px 1fr 1fr;\n  gap: 1rem;\n}\n\n.header { grid-area: header; }\n.side   { grid-area: side; }\n.main   { grid-area: main; }\n.foot   { grid-area: foot; }\n\nThen a media query swaps the shape on small screens:\n\n@media (max-width: 800px) {\n  .page { grid-template-areas: "header" "side" "main" "foot"; }\n}\n\nWhy I like it\n• The layout lives in one obvious place\n• Reordering for mobile is a two-line change\n• No magic numbers or absolute positioning\n• It degrades to a simple stacked page if the browser does not support it'},
+
+    {id:'n6',cat:'AI',title:'How a language model actually predicts',sum:'Tokens, probabilities and temperature — explained without the maths.',level:'Beginner',time:5,
+     body:'Step by step, in plain language.\n\n1. The text is split into tokens\nYour sentence becomes chunks of roughly 3-4 characters. Tokens are the unit a model works with, not words.\n\n2. Each token becomes a vector\nA neural network converts each token into a long list of numbers that captures its meaning in context.\n\n3. The model predicts the next token\nIt outputs a probability for every possible token in its vocabulary. "The" might be 40%, "a" 25%, "cat" 5%…\n\n4. One token is chosen\nA sampler picks based on those probabilities.\n\n5. The chosen token is appended and it repeats\nThis is why a model can write a paragraph one token at a time.\n\nTemperature controls the sampler\n• Low temperature (0.1) -> almost always the most likely token. Facts, code, exact formats.\n• High temperature (1.0+) -> more variety. Brainstorming, storytelling, names.\n\nThat single knob is why the same prompt can give a precise answer or a creative one.'},
+
+    {id:'n7',cat:'Computer Science',title:'Big-O in five examples',sum:'What the O actually means, and how to spot it in real code.',level:'Beginner',time:6,
+     body:'Big-O describes how the work grows as the input grows. The n is the input size.\n\nSearching a list of n items -> O(n)\nDouble the items, double the time.\n\nSorting n items -> O(n log n)\nSlightly worse than linear, but the n log n curve is what every real sort runs at.\n\nNested loops over the same list -> O(n squared)\nThis is the one to watch. Ten thousand items becomes 100 million operations.\n\nDictionary lookup by key -> O(1)\nHash maps get a big win here: a Map lookup does not grow with the number of items, so it beats indexOf on large lists.\n\nA React-style render that re-renders every child -> O(children)\nFix it with memoisation or a stable key.\n\nHow to spot it in your own code\nCount the loops, not the lines. One loop over n items is O(n). Two nested loops over n items is O(n squared). A loop inside a loop inside a loop is usually a design problem, not a maths problem.'},
+
+    {id:'n8',cat:'Git',title:'The six Git commands I actually use',sum:'A practical, tiny workflow for a solo developer working in branches.',level:'Beginner',time:4,
+     body:'Everything else can be looked up when needed. These six cover 90% of my work.\n\ngit status\nWhat changed, what is staged, what is untracked. Run it more often than you think.\n\ngit add -A\ngit commit -m "Add BOM export button"\nStage everything and write a message that explains WHY, not WHAT. The diff already shows the what.\n\ngit branch feature/login-page\ngit switch feature/login-page\nCreate a branch, then move onto it. One feature per branch.\n\ngit switch main\ngit merge feature/login-page\nBack to main and bring the feature in.\n\ngit pull --rebase\ngit push\nKeep my history clean and share it.\n\nMy rule\nCommit every time something works. Small commits are easy to revert; one giant commit at the end of the week is a liability.'}
+  ];
+
+  const CHEATS=[
+    {cat:'HTML',title:'HTML cheat sheet',rows:[
+      ['<div>','A generic block container'],
+      ['<span>','An inline container'],
+      ['<a href>','A link to another page or place'],
+      ['<button>','An action (not a link)'],
+      ['<img alt>','An image, with alternative text'],
+      ['<label for>','A label bound to an input'],
+      ['<nav> <main> <header> <footer>','The landmarks screen readers use']
+    ]},
+    {cat:'CSS',title:'CSS cheat sheet',rows:[
+      ['display: flex','Lay items out in a row or column'],
+      ['gap','Space between flex/grid items'],
+      ['margin / padding','Outside / inside space'],
+      ['position: sticky','Follows the scroll until its parent ends'],
+      ['clamp()','Fluid size between a min and a max'],
+      ['aspect-ratio','Keeps a box proportional'],
+      ['@media','Change styles at certain screen sizes']
+    ]},
+    {cat:'JavaScript',title:'JavaScript cheat sheet',rows:[
+      ['const / let','Block-scoped bindings'],
+      ['=== / ==','Strict vs loose equality'],
+      ['map / filter','Transform / keep matching items'],
+      ['reduce','Combine into a single value'],
+      ['?. and ??','Optional chaining / nullish fallback'],
+      ['async / await','Wait for promises without blocking'],
+      ['localStorage','Save small data in the browser']
+    ]},
+    {cat:'Linux',title:'Linux cheat sheet',rows:[
+      ['ls -la','List files, all, with details'],
+      ['cd','Change directory'],
+      ['pwd','Print the working directory'],
+      ['cp -r','Copy a folder recursively'],
+      ['chmod +x','Make a script executable'],
+      ['grep -r','Search inside files'],
+      ['ps aux','List running processes']
+    ]}
+  ];
+
+  const CATS=['All','HTML','CSS','JavaScript','AI','Computer Science','Git','Cheat sheets'];
+  let filter='All';
+
+  function renderChips(){
+    $('#chips').innerHTML=CATS.map(c=>'<button class="chip'+(c===filter?' active':'')+'" data-cat="'+c+'">'+c+'</button>').join('');
+  }
+
+  function render(){
+    const q=($('#search').value||'').toLowerCase().trim();
+    const list=NOTES.filter(n=>{
+      if(filter!=='All'&&filter!=='Cheat sheets'&&n.cat!==filter) return false;
+      if(!q) return true;
+      return (n.title+' '+n.sum+' '+n.body+' '+n.cat).toLowerCase().includes(q);
+    });
+    const showCheats = filter==='Cheat sheets' || (filter==='All' && q.length>0);
+    const notesWrap=$('#notes');
+    const cheats=CHEATS.filter(c=>{
+      if(filter==='All'||filter==='Cheat sheets') return true;
+      return false;
+    });
+
+    let html='';
+    if(filter!=='Cheat sheets'){
+      html=list.map(n=>
+        '<article class="note" data-note="'+n.id+'">'+
+          '<div class="note__meta"><span class="badge badge--v">'+esc(n.cat)+'</span><span class="badge">'+esc(n.level)+'</span><span class="badge">'+n.time+' min read</span></div>'+
+          '<h3>'+esc(n.title)+'</h3><p>'+esc(n.sum)+'</p>'+
+        '</article>'
+      ).join('');
+    }
+    if(showCheats){
+      html+=cheats.map((c,i)=>
+        '<article class="note" data-cheat="'+i+'">'+
+          '<div class="note__meta"><span class="badge badge--info">Cheat sheet</span><span class="badge">'+esc(c.cat)+'</span></div>'+
+          '<h3>'+esc(c.title)+'</h3><p>'+c.rows.length+' quick references you can keep open in a second tab while you code.</p>'+
+        '</article>'
+      ).join('');
+    }
+    notesWrap.innerHTML=html;
+    $('#empty').hidden=html.length>0;
+  }
+
+  const reader=$('#reader');
+  function openReader(title,meta,body){
+    $('#readerBox').innerHTML='<div class="row" style="justify-content:space-between;align-items:flex-start">'+
+      '<h3>'+esc(title)+'</h3><button class="btn btn--sm" id="closeReader">Close</button></div>'+
+      '<div class="note__meta" style="margin-top:.5rem">'+meta+'</div><pre>'+esc(body)+'</pre>';
+    reader.hidden=false;
+    $('#closeReader').addEventListener('click',()=>{ reader.hidden=true; });
+  }
+
+  $('#notes').addEventListener('click',e=>{
+    const n=e.target.closest('[data-note]');
+    if(n){
+      const note=NOTES.find(x=>x.id===n.dataset.note);
+      openReader(note.title,
+        '<span class="badge badge--v">'+esc(note.cat)+'</span><span class="badge">'+esc(note.level)+'</span><span class="badge">'+note.time+' min read</span>',
+        note.body);
+      return;
+    }
+    const c=e.target.closest('[data-cheat]');
+    if(c){
+      const sheet=CHEATS[+c.dataset.cheat];
+      const body=sheet.rows.map(r=>r[0].padEnd(18,' ')+' — '+r[1]).join('\n');
+      openReader(sheet.title,'<span class="badge badge--info">Cheat sheet</span><span class="badge">'+esc(sheet.cat)+'</span>',body);
+    }
+  });
+
+  $('#chips').addEventListener('click',e=>{
+    const b=e.target.closest('[data-cat]'); if(!b) return;
+    filter=b.dataset.cat; renderChips(); render();
+  });
+  $('#search').addEventListener('input',render);
+  $('#cheatBtn').addEventListener('click',()=>{ filter='Cheat sheets'; renderChips(); render(); window.scrollTo({top:0,behavior:'smooth'}); });
+  reader.addEventListener('click',e=>{ if(e.target===reader) reader.hidden=true; });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') reader.hidden=true; });
+
+  const toastEl=$('#toast');
+  function toast(m){ toastEl.textContent=m; toastEl.classList.add('show'); clearTimeout(toastEl._t); toastEl._t=setTimeout(()=>toastEl.classList.remove('show'),2200); }
+
+  renderChips(); render();
+})();
+</script>
+</body>
+</html>

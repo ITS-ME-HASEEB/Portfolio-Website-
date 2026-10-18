@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Haseeb — Software Developer &amp; BS AI Student @ Quest University</title>
+  <meta name="description" content="Portfolio of Haseeb — BS Artificial Intelligence student at Quest University, building modern web applications with HTML, CSS and JavaScript. Projects, skills, education and contact." />
+  <meta name="theme-color" content="#08050f" />
+  <meta name="author" content="Haseeb" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Haseeb — Software Developer" />
+  <meta property="og:description" content="BS AI student at Quest University. I explore technology, solve problems and build things of my own." />
+  <meta property="og:image" content="assets/img/hero-3d.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="css/fonts.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="is-loading">
+
+  <!-- ═══════════ PRELOADER ═══════════ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <div class="preloader__mark">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-mark" /></svg>
+      </div>
+      <div class="preloader__bar"><span id="preloaderBar"></span></div>
+      <p class="preloader__text">Loading <span id="preloaderPct">0</span>%</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ SVG SPRITE ═══════════ -->
+  <svg class="svg-sprite" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="logo-mark" viewBox="0 0 64 64">
+        <path d="M32 4 58 18v28L32 60 6 46V18z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M22 22v20M42 22v20M22 32h20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="32" cy="32" r="3.5" fill="currentColor"/>
+      </symbol>
+      <symbol id="i-github" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/>
+      </symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95 4.02 0 4.76 2.5 4.76 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.19 1.46-2.19 2.97V21H9z"/>
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m3.5 7.5 8.5 6 8.5-6"/>
+      </symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L17 13l4 1.5v3a2.5 2.5 0 0 1-2.7 2.5A17.5 17.5 0 0 1 3.9 5.7 2.5 2.5 0 0 1 6.5 3Z"/>
+      </symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/>
+        <circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h13m-5.5-5.5L18 12l-5.5 5.5"/>
+      </symbol>
+      <symbol id="i-download" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 3v11m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+      </symbol>
+      <symbol id="i-code" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m9 7-5 5 5 5M15 7l5 5-5 5"/>
+      </symbol>
+      <symbol id="i-external" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/>
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/>
+      </symbol>
+      <symbol id="i-sparkle" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 2.5 13.9 8l5.6 1.9-5.6 1.9L12 17.4l-1.9-5.6L4.5 9.9 10.1 8z"/>
+        <path fill="currentColor" opacity=".7" d="M18.5 14.5 19.4 17l2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z"/>
+      </symbol>
+      <symbol id="i-monitor" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 5h18a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm5 16h8M12 17v4"/>
+      </symbol>
+      <symbol id="i-laptop" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 6h14a1 1 0 0 1 1 1v9H4V7a1 1 0 0 1 1-1Zm-1 10h16l-1.5 3H5.5z"/>
+      </symbol>
+      <symbol id="i-terminal" viewBox="0 0 24 24">
+        <rect x="2.5" y="4" width="19" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m7 10 2.5 2L7 14m5 0h5"/>
+      </symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m12 3 9 4.5-9 4.5-9-4.5Zm9 9-9 4.5-9-4.5m18 4.5L12 21l-9-4.5"/>
+      </symbol>
+      <symbol id="i-bulb" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 18h6m-5 3h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .9 1.6h5.2c.1-.6.4-1.2.9-1.6A6 6 0 0 0 12 3Z"/>
+      </symbol>
+      <symbol id="i-user" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4.5 20a7.5 7.5 0 0 1 15 0"/>
+      </symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20s-7.5-4.6-7.5-9.4A4.1 4.1 0 0 1 12 8.2a4.1 4.1 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20Z"/>
+      </symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+      </symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/>
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m5 13 4.5 4.5L19 7"/>
+      </symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9"/>
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2Z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ═══════════ AMBIENT BACKGROUND ═══════════ -->
+  <div class="bg-fx" aria-hidden="true">
+    <div class="bg-fx__grid"></div>
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+    <div class="bg-fx__noise"></div>
+  </div>
+  <canvas id="fxCanvas" class="fx-canvas" aria-hidden="true"></canvas>
+
+  <!-- cursor glow -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <!-- scroll progress -->
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollBar"></span></div>
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header__inner">
+      <a class="brand" href="#home" data-nav>
+        <span class="brand__mark">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-mark" /></svg>
+        </span>
+        <span class="brand__name">HASEEB</span>
+      </a>
+
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="#home" class="nav__link is-active" data-nav>Home</a>
+        <a href="#about" class="nav__link" data-nav>About</a>
+        <a href="#skills" class="nav__link" data-nav>Skills</a>
+        <a href="#projects" class="nav__link" data-nav>Projects</a>
+        <a href="#education" class="nav__link" data-nav>Education</a>
+        <a href="#experience" class="nav__link" data-nav>Experience</a>
+        <a href="#contact" class="nav__link" data-nav>Contact</a>
+        <a href="resume.html" class="btn btn--resume nav__resume" target="_blank" rel="noopener">
+          <svg class="ico" aria-hidden="true"><use href="#i-download" /></svg><span>Resume</span>
+        </a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle colour theme">
+          <svg class="ico ico--sun" aria-hidden="true"><use href="#i-sun" /></svg>
+          <svg class="ico ico--moon" aria-hidden="true"><use href="#i-moon" /></svg>
+        </button>
+        <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+          <svg class="ico ico--menu" aria-hidden="true"><use href="#i-menu" /></svg>
+          <svg class="ico ico--close" aria-hidden="true"><use href="#i-close" /></svg>
+        </button>
+      </div>
+    </div>
+    <div class="header__glow" aria-hidden="true"></div>
+  </header>
+
+  <div class="nav-backdrop" id="navBackdrop" hidden></div>
+
+  <main id="main">
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero" id="home">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="hero__script reveal" data-reveal="left" data-delay="60">Hello, I’m</p>
+          <h1 class="hero__title reveal" data-reveal="left" data-delay="140">
+            <span class="hero__name" data-text="HASEEB">HASEEB</span>
+          </h1>
+          <span class="hero__rule reveal" data-reveal="left" data-delay="200"></span>
+          <p class="hero__role reveal" data-reveal="left" data-delay="260">
+            <span class="typing" id="typingText" data-phrases='["A passionate software developer.","A BS AI student who builds things.","A problem solver &amp; tech explorer."]'></span>
+          </p>
+          <p class="hero__desc reveal" data-reveal="left" data-delay="320">
+            I love turning ideas into working software — exploring new technology, solving real
+            problems and building things of my own from scratch.
+          </p>
+          <div class="hero__actions reveal" data-reveal="left" data-delay="380">
+            <a href="#projects" class="btn btn--primary" data-magnetic>
+              <svg class="ico" aria-hidden="true"><use href="#i-code" /></svg><span>View My Work</span>
+            </a>
+            <a href="#contact" class="btn btn--ghost" data-magnetic>
+              <svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg><span>Contact Me</span>
+            </a>
+          </div>
+          <div class="hero__stats reveal" data-reveal="left" data-delay="440">
+            <div class="stat"><b class="counter" data-count="1" data-suffix="st Year">0</b><span>BS AI @ Quest University</span></div>
+            <div class="stat"><b class="counter" data-count="6">0</b><span>Projects built &amp; shipped</span></div>
+            <div class="stat"><b class="counter" data-count="3">0</b><span>Languages: English, Urdu, Sindhi</span></div>
+          </div>
+        </div>
+
+        <div class="hero__visual reveal" data-reveal="right" data-delay="200">
+          <div class="hero__glow" aria-hidden="true"></div>
+          <img src="assets/img/hero-3d.webp" alt="3D render of the name Haseeb in glowing purple chrome" class="hero__img" width="1400" height="781" />
+          <div class="hero__chip hero__chip--1"><svg class="ico" aria-hidden="true"><use href="#i-sparkle" /></svg> HTML · CSS · JS</div>
+          <div class="hero__chip hero__chip--2"><svg class="ico" aria-hidden="true"><use href="#i-terminal" /></svg> Linux basics</div>
+        </div>
+      </div>
+
+      <a class="scroll-cue" href="#about" aria-label="Scroll to about section">
+        <span class="scroll-cue__mouse"><span></span></span>
+        <span class="scroll-cue__label">Scroll</span>
+      </a>
+    </section>
+
+    <!-- ═══════════ MARQUEE ═══════════ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marqueeTrack">
+        <span>HTML5</span><i>✦</i><span>CSS3</span><i>✦</i><span>JavaScript</span><i>✦</i><span>Linux</span><i>✦</i>
+        <span>Artificial Intelligence</span><i>✦</i><span>Photoshop</span><i>✦</i><span>MS Office</span><i>✦</i>
+        <span>Git</span><i>✦</i><span>Problem Solving</span><i>✦</i><span>Teaching</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ═══════════ ABOUT ═══════════ -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section__head reveal" data-reveal="up">
+          <p class="section__eyebrow"><span></span>Introduction<span></span></p>
+          <h2 class="section__title">About <em>Me</em></h2>
+          <p class="section__lead">A first-year Artificial Intelligence student who enjoys turning curiosity into working code.</p>
+        </header>
+
+        <div class="about__grid">
+          <article class="card about__card reveal" data-reveal="left">
+            <div class="about__icon"><svg class="ico" aria-hidden="true"><use href="#i-user" /></svg></div>
+            <h3>Who I Am</h3>
+            <p>
+              I’m <strong>Haseeb</strong>, a 1st-year <strong>BS Artificial Intelligence</strong> student at
+              <strong>Quest University, Karachi</strong>. My journey started with a Computer Science diploma (DIT),
+              a Computer Science high-school background, and short hands-on courses in Photoshop and Microsoft Office.
+              Now I’m turning that base into real, shipped web software.
+            </p>
+          </article>
+
+          <article class="card about__card reveal" data-reveal="up" data-delay="120">
+            <div class="about__icon"><svg class="ico" aria-hidden="true"><use href="#i-terminal" /></svg></div>
+            <h3>What I Do</h3>
+            <p>
+              I design and build responsive web experiences with <strong>HTML, CSS and JavaScript</strong>, and I love
+              breaking real-world problems into small, solvable steps. I’m comfortable with Linux basics, Git,
+              MS Office and image editing — and I’m currently deep into AI, data and clean system design.
+            </p>
+          </article>
+
+          <article class="card about__card reveal" data-reveal="right" data-delay="240">
+            <div class="about__icon"><svg class="ico" aria-hidden="true"><use href="#i-heart" /></svg></div>
+            <h3>What I Love</h3>
+            <p>
+              Exploring technology and always staying updated with what’s new, gaming, writing code that actually
+              solves a problem, and creating things of my own from zero. Teaching what I learn to others is
+              something I genuinely enjoy — it forces my own understanding to get sharper.
+            </p>
+          </article>
+        </div>
+
+        <div class="about__profile reveal" data-reveal="up">
+          <div class="about__photo">
+            <img src="assets/img/profile.webp" alt="Stylised illustration of Haseeb" width="900" height="491" loading="lazy" />
+            <div class="about__photo-ring" aria-hidden="true"></div>
+          </div>
+          <div class="about__facts">
+            <h3 class="about__facts-title">Quick facts</h3>
+            <ul class="fact-list">
+              <li><svg class="ico" aria-hidden="true"><use href="#i-bulb" /></svg><div><b>Name</b><span>Haseeb</span></div></li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-layers" /></svg><div><b>Studying</b><span>BS Artificial Intelligence — Quest University</span></div></li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-monitor" /></svg><div><b>Focus</b><span>Front-end development &amp; applied AI</span></div></li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-pin" /></svg><div><b>Based in</b><span>Karachi, Pakistan</span></div></li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-user" /></svg><div><b>Languages</b><span>English · Urdu · Sindhi</span></div></li>
+            </ul>
+            <a class="btn btn--outline" href="#contact" data-magnetic>
+              <svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg><span>Let’s work together</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ SKILLS ═══════════ -->
+    <section class="section section--alt" id="skills">
+      <div class="container">
+        <header class="section__head reveal" data-reveal="up">
+          <p class="section__eyebrow"><span></span>What I work with<span></span></p>
+          <h2 class="section__title">Skills &amp; <em>Toolkit</em></h2>
+          <p class="section__lead">Tools I reach for every day — plus the human skills that make the code actually useful.</p>
+        </header>
+
+        <div class="skills__grid">
+          <div class="card skill-col reveal" data-reveal="left">
+            <h3 class="skill-col__title"><span class="dot dot--violet"></span>Front-end</h3>
+            <div class="tags">
+              <span class="tag" data-level="95">HTML5</span>
+              <span class="tag" data-level="92">CSS3</span>
+              <span class="tag" data-level="85">JavaScript</span>
+              <span class="tag" data-level="80">Responsive UI</span>
+              <span class="tag" data-level="78">Flexbox &amp; Grid</span>
+              <span class="tag" data-level="70">Animations</span>
+            </div>
+          </div>
+
+          <div class="card skill-col reveal" data-reveal="up" data-delay="100">
+            <h3 class="skill-col__title"><span class="dot dot--cyan"></span>Tools &amp; Platforms</h3>
+            <div class="tags">
+              <span class="tag" data-level="70">Linux (basics)</span>
+              <span class="tag" data-level="75">Git &amp; GitHub</span>
+              <span class="tag" data-level="85">MS Office</span>
+              <span class="tag" data-level="80">Adobe Photoshop</span>
+              <span class="tag" data-level="70">Canva</span>
+              <span class="tag" data-level="65">Windows</span>
+            </div>
+          </div>
+
+          <div class="card skill-col reveal" data-reveal="right" data-delay="200">
+            <h3 class="skill-col__title"><span class="dot dot--green"></span>Human skills</h3>
+            <div class="tags">
+              <span class="tag" data-level="90">Problem solving</span>
+              <span class="tag" data-level="90">Teaching</span>
+              <span class="tag" data-level="88">Client handling</span>
+              <span class="tag" data-level="85">Communication</span>
+              <span class="tag" data-level="85">Fast learner</span>
+              <span class="tag" data-level="80">Teamwork</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills__bars reveal" data-reveal="up">
+          <div class="bar-row">
+            <span class="bar-row__label">HTML5</span>
+            <div class="bar"><i data-fill="95"></i></div><span class="bar-row__val">95%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row__label">CSS3</span>
+            <div class="bar"><i data-fill="92"></i></div><span class="bar-row__val">92%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row__label">JavaScript</span>
+            <div class="bar"><i data-fill="85"></i></div><span class="bar-row__val">85%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row__label">Linux</span>
+            <div class="bar"><i data-fill="55"></i></div><span class="bar-row__val">55%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-row__label">Photoshop</span>
+            <div class="bar"><i data-fill="70"></i></div><span class="bar-row__val">70%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ PROJECTS ═══════════ -->
+    <section class="section" id="projects">
+      <div class="container">
+        <header class="section__head reveal" data-reveal="up">
+          <p class="section__eyebrow"><span></span>Things I have built<span></span></p>
+          <h2 class="section__title">Featured <em>Projects</em></h2>
+          <p class="section__lead">Click any card to open the full case study — several of them are live apps you can actually use.</p>
+        </header>
+
+        <div class="projects__grid" id="projectsGrid">
+          <!-- 1 -->
+          <article class="card project reveal" data-reveal="up" data-delay="0"data-project="bom" tabindex="0" role="button" aria-label="Open BOM Management System project">
+            <div class="project__media">
+              <img src="assets/img/project-bom.webp" width="1000" height="545" alt="BOM management system dashboard" loading="lazy" />
+              <span class="project__badge">Live app</span>
+            </div>
+            <div class="project__body">
+              <h3>BOM Management System</h3>
+              <p>A working Bill of Materials system: track parts, stock levels, reorder points and assembly cost — with live low-stock alerts.</p>
+              <div class="tags tags--sm">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">LocalStorage</span>
+              </div>
+              <div class="project__links">
+                <a class="link-chip" href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-code" /></svg> Code</a>
+                <a class="link-chip link-chip--live" href="bom.html" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-external" /></svg> Live demo</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 2 -->
+          <article class="card project reveal" data-reveal="up" data-delay="90"data-project="task" tabindex="0" role="button" aria-label="Open Task Manager project">
+            <div class="project__media">
+              <img src="assets/img/project-task.webp" width="1000" height="545" alt="Kanban task manager board" loading="lazy" />
+              <span class="project__badge">Live app</span>
+            </div>
+            <div class="project__body">
+              <h3>Task Manager (Kanban)</h3>
+              <p>A collaborative board with drag &amp; drop columns, priorities, labels, progress tracking and persistent storage.</p>
+              <div class="tags tags--sm">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Drag &amp; drop</span>
+              </div>
+              <div class="project__links">
+                <a class="link-chip" href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-code" /></svg> Code</a>
+                <a class="link-chip link-chip--live" href="task.html" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-external" /></svg> Live demo</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3 -->
+          <article class="card project reveal" data-reveal="up" data-delay="180"data-project="prompts" tabindex="0" role="button" aria-label="Open AI Prompt Generator project">
+            <div class="project__media">
+              <img src="assets/img/project-ai.webp" width="1000" height="545" alt="AI prompt generator interface" loading="lazy" />
+              <span class="project__badge">Live app</span>
+            </div>
+            <div class="project__body">
+              <h3>AI Prompt Generator</h3>
+              <p>Template-driven prompt builder for study, code and AI work — pick a goal, get a structured prompt, copy it anywhere.</p>
+              <div class="tags tags--sm">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Clipboard</span>
+              </div>
+              <div class="project__links">
+                <a class="link-chip" href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-code" /></svg> Code</a>
+                <a class="link-chip link-chip--live" href="prompts.html" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-external" /></svg> Live demo</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 4 -->
+          <article class="card project reveal" data-reveal="up" data-delay="60"data-project="shop" tabindex="0" role="button" aria-label="Open Shopify Operations project">
+            <div class="project__media">
+              <img src="assets/img/project-store.webp" width="1000" height="545" alt="Store operations dashboard" loading="lazy" />
+              <span class="project__badge">Live app</span>
+            </div>
+            <div class="project__body">
+              <h3>Store Operations Hub</h3>
+              <p>Built from my internship: orders, inventory, complaints and invoices in one clean dashboard for a Shopify store.</p>
+              <div class="tags tags--sm">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Charts</span>
+              </div>
+              <div class="project__links">
+                <a class="link-chip" href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-code" /></svg> Code</a>
+                <a class="link-chip link-chip--live" href="shop.html" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-external" /></svg> Live demo</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5 -->
+          <article class="card project reveal" data-reveal="up" data-delay="150"data-project="teaching" tabindex="0" role="button" aria-label="Open Teaching Hub project">
+            <div class="project__media">
+              <img src="assets/img/project-task.webp" width="1000" height="545" alt="Study notes and teaching hub" loading="lazy" />
+              <span class="project__badge">Case study</span>
+            </div>
+            <div class="project__body">
+              <h3>Teaching &amp; Notes Hub</h3>
+              <p>A simple, searchable hub where I publish notes I use to teach — HTML, CSS, JavaScript and computer fundamentals.</p>
+              <div class="tags tags--sm">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Markdown</span>
+              </div>
+              <div class="project__links">
+                <a class="link-chip" href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-code" /></svg> Code</a>
+                <a class="link-chip link-chip--live" href="notes.html" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-external" /></svg> Live demo</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- 6 -->
+          <article class="card project reveal" data-reveal="up" data-delay="240"data-project="portfolio" tabindex="0" role="button" aria-label="Open Portfolio Website project">
+            <div class="project__media">
+              <img src="assets/img/hero-3d.webp" alt="This portfolio website" loading="lazy" />
+              <span class="project__badge">You are here</span>
+            </div>
+            <div class="project__body">
+              <h3>This Portfolio Website</h3>
+              <p>Hand-coded neon dark theme: scroll animations, magnetic buttons, live particle canvas, project modals and a fully responsive grid.</p>
+              <div class="tags tags--sm">
+                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Canvas</span>
+              </div>
+              <div class="project__links">
+                <a class="link-chip" href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-code" /></svg> Code</a>
+                <a class="link-chip link-chip--live" href="index.html" target="_blank" rel="noopener" data-no-card><svg class="ico" aria-hidden="true"><use href="#i-external" /></svg> Live demo</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ EDUCATION ═══════════ -->
+    <section class="section section--alt" id="education">
+      <div class="container">
+        <header class="section__head reveal" data-reveal="up">
+          <p class="section__eyebrow"><span></span>How I got here<span></span></p>
+          <h2 class="section__title">Education &amp; <em>Courses</em></h2>
+          <p class="section__lead">From Computer Science in high school to a degree in Artificial Intelligence.</p>
+        </header>
+
+        <div class="timeline">
+          <article class="tl-item reveal" data-reveal="left">
+            <span class="tl-item__dot" aria-hidden="true"></span>
+            <div class="card tl-item__card">
+              <span class="tl-item__tag">Currently studying</span>
+              <h3>Bachelor of Science in Artificial Intelligence</h3>
+              <p class="tl-item__meta">Quest University, Karachi, Pakistan · 2025 — 2029</p>
+              <p>First-year student. Core study covers programming fundamentals, data structures, databases, mathematics for AI and an introduction to machine learning — with a strong web-development track on the side.</p>
+              <div class="tags tags--sm">
+                <span class="tag">Artificial Intelligence</span><span class="tag">Data Structures</span><span class="tag">Databases</span><span class="tag">Web Development</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="tl-item reveal" data-reveal="right">
+            <span class="tl-item__dot" aria-hidden="true"></span>
+            <div class="card tl-item__card">
+              <span class="tl-item__tag">1 year</span>
+              <h3>Diploma in Information Technology (DIT)</h3>
+              <p class="tl-item__meta">Computer Science track · 1 year</p>
+              <p>One full year of computer-science fundamentals: programming logic, web basics, database concepts, networking, troubleshooting and productivity software.</p>
+              <div class="tags tags--sm">
+                <span class="tag">Programming Logic</span><span class="tag">Web Basics</span><span class="tag">Networking</span><span class="tag">Databases</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="tl-item reveal" data-reveal="left">
+            <span class="tl-item__dot" aria-hidden="true"></span>
+            <div class="card tl-item__card">
+              <span class="tl-item__tag">Foundation</span>
+              <h3>High School — Computer Science</h3>
+              <p class="tl-item__meta">Science group with Computer Science</p>
+              <p>Where it started: computer-science fundamentals, mathematics, and my first experiments with making things on a screen work.</p>
+              <div class="tags tags--sm">
+                <span class="tag">Computer Science</span><span class="tag">Mathematics</span><span class="tag">Logic</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="tl-item reveal" data-reveal="right">
+            <span class="tl-item__dot" aria-hidden="true"></span>
+            <div class="card tl-item__card">
+              <span class="tl-item__tag">Short courses</span>
+              <h3>Adobe Photoshop &amp; Microsoft Office</h3>
+              <p class="tl-item__meta">1 month Photoshop course · Microsoft Office certification</p>
+              <p>A one-month hands-on Photoshop course covering layers, masks, retouching and design basics — plus complete Microsoft Office training in Word, Excel and PowerPoint.</p>
+              <div class="tags tags--sm">
+                <span class="tag">Photoshop</span><span class="tag">Word</span><span class="tag">Excel</span><span class="tag">PowerPoint</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ EXPERIENCE ═══════════ -->
+    <section class="section" id="experience">
+      <div class="container">
+        <header class="section__head reveal" data-reveal="up">
+          <p class="section__eyebrow"><span></span>Real-world work<span></span></p>
+          <h2 class="section__title">Experience</h2>
+          <p class="section__lead">Where I learned that software is really about people, process and getting the details right.</p>
+        </header>
+
+        <div class="exp__grid">
+          <article class="card exp-card reveal" data-reveal="left">
+            <div class="exp-card__head">
+              <div class="exp-card__icon"><svg class="ico" aria-hidden="true"><use href="#i-laptop" /></svg></div>
+              <div>
+                <h3>Store Operations &amp; Client Support</h3>
+                <p class="exp-card__role">Internship · Manufacturing &amp; retail business</p>
+              </div>
+            </div>
+            <ul class="tick-list">
+              <li>Managed client communication — answering queries and keeping customers updated on orders.</li>
+              <li>Ran the company’s Shopify store end-to-end: product listings, order updates and store content.</li>
+              <li>Checked inventory regularly and coordinated with the production team to keep stock balanced.</li>
+              <li>Handled customer complaints calmly and turned them into fixes rather than excuses.</li>
+              <li>Prepared invoices, bills and daily sales records for the accounts.</li>
+            </ul>
+            <div class="tags tags--sm">
+              <span class="tag">Shopify</span><span class="tag">Inventory</span><span class="tag">Invoicing</span><span class="tag">Client Handling</span>
+            </div>
+          </article>
+
+          <article class="card exp-card reveal" data-reveal="right" data-delay="120">
+            <div class="exp-card__head">
+              <div class="exp-card__icon"><svg class="ico" aria-hidden="true"><use href="#i-bulb" /></svg></div>
+              <div>
+                <h3>Self-taught Web Development</h3>
+                <p class="exp-card__role">Ongoing · Building in public</p>
+              </div>
+            </div>
+            <ul class="tick-list">
+              <li>Learning HTML, CSS and JavaScript by building small, complete products instead of tutorials only.</li>
+              <li>Teaching what I learn to classmates — explaining a concept is the fastest way to master it.</li>
+              <li>Getting comfortable with Linux, Git and GitHub so my workflow matches a real developer’s.</li>
+              <li>Following AI and web-development trends closely and testing what is actually useful.</li>
+            </ul>
+            <div class="tags tags--sm">
+              <span class="tag">JavaScript</span><span class="tag">Git</span><span class="tag">Linux</span><span class="tag">Teaching</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ CONTACT ═══════════ -->
+    <section class="section section--alt" id="contact">
+      <div class="container">
+        <header class="section__head reveal" data-reveal="up">
+          <p class="section__eyebrow"><span></span>Say hello<span></span></p>
+          <h2 class="section__title">Let’s <em>Connect</em></h2>
+          <p class="section__lead">Open to internships, collaborations, learning opportunities, or just a friendly chat about technology.</p>
+        </header>
+
+        <div class="contact__grid">
+          <div class="contact__info">
+            <a class="card contact-item reveal" data-reveal="left" href="mailto:hello@haseeb.dev" data-copy="hello@haseeb.dev">
+              <span class="contact-item__icon"><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg></span>
+              <span class="contact-item__text"><b>Email</b><span data-config="email">hello@haseeb.dev</span></span>
+              <svg class="ico contact-item__go" aria-hidden="true"><use href="#i-arrow" /></svg>
+            </a>
+            <a class="card contact-item reveal" data-reveal="left" data-delay="80" href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener">
+              <span class="contact-item__icon"><svg class="ico" aria-hidden="true"><use href="#i-github" /></svg></span>
+              <span class="contact-item__text"><b>GitHub</b><span data-config="github">github.com/ITS-ME-HASEEB</span></span>
+              <svg class="ico contact-item__go" aria-hidden="true"><use href="#i-external" /></svg>
+            </a>
+            <a class="card contact-item reveal" data-reveal="left" data-delay="160" href="https://www.linkedin.com/in/its-me-haseeb" target="_blank" rel="noopener">
+              <span class="contact-item__icon"><svg class="ico" aria-hidden="true"><use href="#i-linkedin" /></svg></span>
+              <span class="contact-item__text"><b>LinkedIn</b><span data-config="linkedin">linkedin.com/in/its-me-haseeb</span></span>
+              <svg class="ico contact-item__go" aria-hidden="true"><use href="#i-external" /></svg>
+            </a>
+            <div class="card contact-item reveal" data-reveal="left" data-delay="240">
+              <span class="contact-item__icon"><svg class="ico" aria-hidden="true"><use href="#i-pin" /></svg></span>
+              <span class="contact-item__text"><b>Location</b><span>Karachi, Pakistan — open to remote</span></span>
+            </div>
+
+            <div class="contact__socials reveal" data-reveal="up">
+              <a href="mailto:hello@haseeb.dev" class="social-btn" aria-label="Email"><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg></a>
+              <a href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><svg class="ico" aria-hidden="true"><use href="#i-github" /></svg></a>
+              <a href="https://www.linkedin.com/in/its-me-haseeb" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><svg class="ico" aria-hidden="true"><use href="#i-linkedin" /></svg></a>
+              <a href="resume.html" target="_blank" rel="noopener" class="social-btn" aria-label="Resume"><svg class="ico" aria-hidden="true"><use href="#i-download" /></svg></a>
+            </div>
+          </div>
+
+          <form class="card contact-form reveal" data-reveal="right" id="contactForm" novalidate>
+            <div class="contact-form__row">
+              <label class="field">
+                <span>Your name</span>
+                <input type="text" name="name" placeholder="e.g. Ahmed" autocomplete="name" required />
+                <i class="field__line"></i>
+              </label>
+              <label class="field">
+                <span>Your email</span>
+                <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+                <i class="field__line"></i>
+              </label>
+            </div>
+            <label class="field">
+              <span>Subject</span>
+              <input type="text" name="subject" placeholder="Project / internship / collaboration" />
+              <i class="field__line"></i>
+            </label>
+            <label class="field">
+              <span>Message</span>
+              <textarea name="message" rows="5" placeholder="Tell me a little about what you have in mind…" required></textarea>
+              <i class="field__line"></i>
+            </label>
+            <button type="submit" class="btn btn--primary btn--full" id="submitBtn" data-magnetic>
+              <span class="btn__label">Send message</span>
+              <svg class="ico" aria-hidden="true"><use href="#i-arrow" /></svg>
+            </button>
+            <p class="form-note" id="formNote" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a class="brand" href="#home" data-nav>
+          <span class="brand__mark"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-mark" /></svg></span>
+          <span class="brand__name">HASEEB</span>
+        </a>
+        <p>Building things on the web, learning in public, and staying curious about technology.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="#about" data-nav>About</a>
+        <a href="#skills" data-nav>Skills</a>
+        <a href="#projects" data-nav>Projects</a>
+        <a href="#education" data-nav>Education</a>
+        <a href="#experience" data-nav>Experience</a>
+        <a href="#contact" data-nav>Contact</a>
+      </nav>
+      <div class="footer__socials">
+        <a href="mailto:hello@haseeb.dev" aria-label="Email"><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg></a>
+        <a href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ico" aria-hidden="true"><use href="#i-github" /></svg></a>
+        <a href="https://www.linkedin.com/in/its-me-haseeb" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ico" aria-hidden="true"><use href="#i-linkedin" /></svg></a>
+        <a href="resume.html" target="_blank" rel="noopener" aria-label="Resume"><svg class="ico" aria-hidden="true"><use href="#i-download" /></svg></a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span id="year">2026</span> Haseeb. All rights reserved.</p>
+      <p class="footer__made">Designed &amp; coded with <span class="heart">♥</span> in Karachi</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════ PROJECT MODAL ═══════════ -->
+  <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog" role="document">
+      <button class="modal__close" type="button" data-close aria-label="Close project">
+        <svg class="ico" aria-hidden="true"><use href="#i-close" /></svg>
+      </button>
+      <div class="modal__scroll">
+        <div class="modal__hero">
+          <img id="modalImage" src="" alt="" />
+          <div class="modal__hero-glow" aria-hidden="true"></div>
+        </div>
+        <div class="modal__head">
+          <h2 id="modalTitle">Project</h2>
+          <p id="modalSubtitle" class="modal__subtitle"></p>
+          <div class="tags tags--sm" id="modalTags"></div>
+        </div>
+        <div class="modal__tabs" role="tablist">
+          <button class="modal__tab is-active" data-tab="overview" role="tab">Overview</button>
+          <button class="modal__tab" data-tab="demo" role="tab">Live demo</button>
+          <button class="modal__tab" data-tab="details" role="tab">Details</button>
+        </div>
+        <div class="modal__panel is-active" data-panel="overview">
+          <p id="modalOverview"></p>
+          <h4>What it does</h4>
+          <ul class="tick-list" id="modalFeatures"></ul>
+        </div>
+        <div class="modal__panel" data-panel="demo">
+          <div class="modal__demo" id="modalDemo">
+            <div class="modal__demo-frame">
+              <div class="modal__demo-bar"><i></i><i></i><i></i><span id="modalDemoUrl">—</span></div>
+              <iframe id="modalIframe" title="Project live demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"></iframe>
+            </div>
+            <a class="btn btn--outline btn--full" id="modalDemoLink" href="#" target="_blank" rel="noopener">
+              <svg class="ico" aria-hidden="true"><use href="#i-external" /></svg><span>Open demo in a new tab</span>
+            </a>
+          </div>
+        </div>
+        <div class="modal__panel" data-panel="details">
+          <h4>How it was built</h4>
+          <p id="modalBuild"></p>
+          <h4>What I learned</h4>
+          <ul class="tick-list" id="modalLearn"></ul>
+        </div>
+        <div class="modal__foot">
+          <a class="btn btn--primary" id="modalCode" href="#" target="_blank" rel="noopener">
+            <svg class="ico" aria-hidden="true"><use href="#i-code" /></svg><span>View code</span>
+          </a>
+          <a class="btn btn--ghost" id="modalDemoBtn" href="#">
+            <svg class="ico" aria-hidden="true"><use href="#i-external" /></svg><span>Live demo</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+
+  <!-- back to top -->
+  <a href="#home" class="to-top" id="toTop" aria-label="Back to top">
+    <svg class="ico" aria-hidden="true"><use href="#i-chevron" /></svg>
+  </a>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
