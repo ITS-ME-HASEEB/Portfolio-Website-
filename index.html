@@ -11,7 +11,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Haseeb — Software Developer" />
   <meta property="og:description" content="BS AI student at Quest University. I explore technology, solve problems and build things of my own." />
-  <meta property="og:image" content="assets/img/hero-3d.webp" />
+  <meta property="og:image" content="assets/img/project-portfolio.webp" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -42,6 +42,11 @@
       </symbol>
       <symbol id="i-github" viewBox="0 0 24 24">
         <path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/>
+      </symbol>
+      <symbol id="i-instagram" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <circle cx="17.2" cy="6.8" r="1.25" fill="currentColor"/>
       </symbol>
       <symbol id="i-linkedin" viewBox="0 0 24 24">
         <path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95 4.02 0 4.76 2.5 4.76 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.9-3.07-1.9 0-2.19 1.46-2.19 2.97V21H9z"/>
@@ -136,11 +141,12 @@
   <!-- ═══════════ HEADER ═══════════ -->
   <header class="site-header" id="siteHeader">
     <div class="container header__inner">
-      <a class="brand" href="#home" data-nav>
-        <span class="brand__mark">
-          <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-mark" /></svg>
+      <a class="brand" href="#home" data-nav aria-label="Haseeb — back to top">
+        <span class="brand__mini" aria-hidden="true">
+          <span class="brand__mini-bar"><i></i><i></i><i></i></span>
+          <span class="brand__mini-line"><b>$</b><em></em></span>
         </span>
-        <span class="brand__name">HASEEB</span>
+        <span class="sr-only">Haseeb</span>
       </a>
 
       <nav class="nav" id="primaryNav" aria-label="Primary">
@@ -207,7 +213,39 @@
 
         <div class="hero__visual reveal" data-reveal="right" data-delay="200">
           <div class="hero__glow" aria-hidden="true"></div>
-          <img src="assets/img/hero-3d.webp" alt="3D render of the name Haseeb in glowing purple chrome" class="hero__img" width="1400" height="781" />
+
+          <div class="term" id="heroTerm">
+            <div class="term__bar">
+              <span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="term__tab"><svg class="ico" aria-hidden="true"><use href="#i-terminal" /></svg> bash</span>
+            </div>
+            <div class="term__body" id="termBody">
+              <p class="term__row"><span class="term__ps1">haseeb@linux</span><span class="term__sep">:</span><span class="term__path">~/projects</span><span class="term__sep">$</span><span class="term__cmd" data-cmd="ls -la"></span><span class="term__caret"></span></p>
+              <p class="term__row term__row--out">
+                <span class="t-c">drwxr-xr-x</span> <span class="t-l">projects</span>
+                <span class="t-c">-rw-r--r--</span> <span class="t-g">portfolio</span>
+                <span class="t-c">-rw-r--r--</span> <span class="t-g">README.md</span>
+                <span class="t-c">drwxr-xr-x</span> <span class="t-m">bom-system</span>
+              </p>
+              <p class="term__row"><span class="term__ps1">haseeb@linux</span><span class="term__sep">:</span><span class="term__path">~/projects</span><span class="term__sep">$</span><span class="term__cmd" data-cmd="python3 main.py"></span><span class="term__caret"></span></p>
+              <p class="term__row term__row--out">
+                <span class="t-c">&#9679;</span> <span class="t-b">building</span> <span class="t-g">bom-system</span> &mdash; <span class="t-g">ok</span>
+              </p>
+              <p class="term__row"><span class="term__ps1">haseeb@linux</span><span class="term__sep">:</span><span class="term__path">~/projects</span><span class="term__sep">$</span><span class="term__cmd" data-cmd="git push"></span><span class="term__caret"></span></p>
+              <p class="term__row term__row--out">
+                <span class="t-c">To</span> <span class="t-b">github.com</span>
+                <span class="t-c">&#9679;</span> <span class="t-b">branch</span> <span class="t-p">main</span>
+                <span class="t-c">&#9679;</span> <span class="t-b">Your branch is up to date</span>
+              </p>
+            </div>
+            <div class="term__sheen" aria-hidden="true"></div>
+          </div>
+
+          <div class="hero__girl" aria-hidden="true">
+            <img class="hero__girl-img" src="assets/img/girl-open.webp" alt="" width="660" height="808" />
+            <img class="hero__girl-img hero__girl-img--blink" src="assets/img/girl-blink.webp" alt="" width="660" height="808" />
+          </div>
+
           <div class="hero__chip hero__chip--1"><svg class="ico" aria-hidden="true"><use href="#i-sparkle" /></svg> HTML · CSS · JS</div>
           <div class="hero__chip hero__chip--2"><svg class="ico" aria-hidden="true"><use href="#i-terminal" /></svg> Linux basics</div>
         </div>
@@ -271,10 +309,6 @@
         </div>
 
         <div class="about__profile reveal" data-reveal="up">
-          <div class="about__photo">
-            <img src="assets/img/profile.webp" alt="Stylised illustration of Haseeb" width="900" height="491" loading="lazy" />
-            <div class="about__photo-ring" aria-hidden="true"></div>
-          </div>
           <div class="about__facts">
             <h3 class="about__facts-title">Quick facts</h3>
             <ul class="fact-list">
@@ -470,9 +504,9 @@
           </article>
 
           <!-- 6 -->
-          <article class="card project reveal" data-reveal="up" data-delay="240"data-project="portfolio" tabindex="0" role="button" aria-label="Open Portfolio Website project">
+          <article class="card project reveal" data-reveal="up" data-delay="240" data-project="portfolio" tabindex="0" role="button" aria-label="Open Portfolio Website project">
             <div class="project__media">
-              <img src="assets/img/hero-3d.webp" alt="This portfolio website" loading="lazy" />
+              <img src="assets/img/project-portfolio.webp" alt="This portfolio website" loading="lazy" />
               <span class="project__badge">You are here</span>
             </div>
             <div class="project__body">
@@ -634,6 +668,11 @@
               <span class="contact-item__text"><b>LinkedIn</b><span data-config="linkedin">linkedin.com/in/its-me-haseeb</span></span>
               <svg class="ico contact-item__go" aria-hidden="true"><use href="#i-external" /></svg>
             </a>
+            <a class="card contact-item reveal" data-reveal="left" data-delay="240" href="https://www.instagram.com/ITS_ME_HASEEB" target="_blank" rel="noopener">
+              <span class="contact-item__icon"><svg class="ico" aria-hidden="true"><use href="#i-instagram" /></svg></span>
+              <span class="contact-item__text"><b>Instagram</b><span data-config="instagram">www.instagram.com/ITS_ME_HASEEB</span></span>
+              <svg class="ico contact-item__go" aria-hidden="true"><use href="#i-external" /></svg>
+            </a>
             <div class="card contact-item reveal" data-reveal="left" data-delay="240">
               <span class="contact-item__icon"><svg class="ico" aria-hidden="true"><use href="#i-pin" /></svg></span>
               <span class="contact-item__text"><b>Location</b><span>Karachi, Pakistan — open to remote</span></span>
@@ -643,6 +682,7 @@
               <a href="mailto:hello@haseeb.dev" class="social-btn" aria-label="Email"><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg></a>
               <a href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub"><svg class="ico" aria-hidden="true"><use href="#i-github" /></svg></a>
               <a href="https://www.linkedin.com/in/its-me-haseeb" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn"><svg class="ico" aria-hidden="true"><use href="#i-linkedin" /></svg></a>
+              <a href="https://www.instagram.com/ITS_ME_HASEEB" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram"><svg class="ico" aria-hidden="true"><use href="#i-instagram" /></svg></a>
               <a href="resume.html" target="_blank" rel="noopener" class="social-btn" aria-label="Resume"><svg class="ico" aria-hidden="true"><use href="#i-download" /></svg></a>
             </div>
           </div>
@@ -685,9 +725,12 @@
   <footer class="site-footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a class="brand" href="#home" data-nav>
-          <span class="brand__mark"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#logo-mark" /></svg></span>
-          <span class="brand__name">HASEEB</span>
+        <a class="brand" href="#home" data-nav aria-label="Haseeb — back to top">
+          <span class="brand__mini" aria-hidden="true">
+            <span class="brand__mini-bar"><i></i><i></i><i></i></span>
+            <span class="brand__mini-line"><b>$</b><em></em></span>
+          </span>
+          <span class="sr-only">Haseeb</span>
         </a>
         <p>Building things on the web, learning in public, and staying curious about technology.</p>
       </div>
@@ -703,6 +746,7 @@
         <a href="mailto:hello@haseeb.dev" aria-label="Email"><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg></a>
         <a href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ico" aria-hidden="true"><use href="#i-github" /></svg></a>
         <a href="https://www.linkedin.com/in/its-me-haseeb" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ico" aria-hidden="true"><use href="#i-linkedin" /></svg></a>
+        <a href="https://www.instagram.com/ITS_ME_HASEEB" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ico" aria-hidden="true"><use href="#i-instagram" /></svg></a>
         <a href="resume.html" target="_blank" rel="noopener" aria-label="Resume"><svg class="ico" aria-hidden="true"><use href="#i-download" /></svg></a>
       </div>
     </div>

@@ -117,6 +117,7 @@
       <a href="mailto:hello@haseeb.dev">✉ <span data-config="email">hello@haseeb.dev</span></a>
       <a href="https://github.com/ITS-ME-HASEEB" target="_blank" rel="noopener">⌨ <span data-config="github">github.com/ITS-ME-HASEEB</span></a>
       <a href="https://www.linkedin.com/in/its-me-haseeb" target="_blank" rel="noopener">in <span data-config="linkedin">linkedin.com/in/its-me-haseeb</span></a>
+      <a href="https://www.instagram.com/ITS_ME_HASEEB" target="_blank" rel="noopener">◎ <span data-config="instagram">www.instagram.com/ITS_ME_HASEEB</span></a>
       <span>⌖ Karachi, Pakistan — open to remote</span>
     </div>
   </header>
@@ -257,14 +258,16 @@
 
   // Keep the résumé contact details in sync with js/config.js
   (function () {
-    var CFG = window.SITE_CONFIG || { email: 'hello@haseeb.dev', github: 'https://github.com/ITS-ME-HASEEB', linkedin: 'https://www.linkedin.com/in/its-me-haseeb' };
+    var CFG = window.SITE_CONFIG || { email: 'hello@haseeb.dev', github: 'https://github.com/ITS-ME-HASEEB', linkedin: 'https://www.linkedin.com/in/its-me-haseeb', instagram: 'https://www.instagram.com/ITS_ME_HASEEB' };
     var pretty = function (u) { return u.replace(/^https?:\/\//, '').replace(/\/$/, ''); };
     document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) { a.setAttribute('href', 'mailto:' + CFG.email); });
     document.querySelectorAll('a[href*="github.com"]').forEach(function (a) { a.setAttribute('href', CFG.github); });
     document.querySelectorAll('a[href*="linkedin.com"]').forEach(function (a) { a.setAttribute('href', CFG.linkedin); });
+    document.querySelectorAll('a[href*="instagram.com"]').forEach(function (a) { a.setAttribute('href', CFG.instagram); });
     document.querySelectorAll('[data-config="email"]').forEach(function (e) { e.textContent = CFG.email; });
     document.querySelectorAll('[data-config="github"]').forEach(function (e) { e.textContent = pretty(CFG.github); });
     document.querySelectorAll('[data-config="linkedin"]').forEach(function (e) { e.textContent = pretty(CFG.linkedin); });
+    document.querySelectorAll('[data-config="instagram"]').forEach(function (e) { e.textContent = pretty(CFG.instagram); });
   })();
 </script>
 </body>

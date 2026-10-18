@@ -16,6 +16,7 @@
     email: 'hello@haseeb.dev',
     github: 'https://github.com/ITS-ME-HASEEB',
     linkedin: 'https://www.linkedin.com/in/its-me-haseeb',
+    instagram: 'https://www.instagram.com/ITS_ME_HASEEB',
     resume: 'resume.html'
   }, window.SITE_CONFIG || {});
 
@@ -161,7 +162,7 @@
     portfolio: {
       title: 'This Portfolio Website',
       subtitle: 'Hand-coded · neon dark theme · fully responsive',
-      image: 'assets/img/hero-3d.webp',
+      image: 'assets/img/project-portfolio.webp',
       tags: ['HTML5', 'CSS3', 'JavaScript', 'Canvas', 'Motion'],
       overview:
         'The site you are looking at right now. It is hand-written with no frameworks, no build step and no template — every animation, gradient and pixel is in the CSS and JavaScript I wrote. It is designed to feel alive rather than static, and it works from a 360px phone up to an ultrawide monitor.',
@@ -200,11 +201,13 @@
     setAttr('a[href^="mailto:"]', 'href', 'mailto:' + CONFIG.email);
     setAttr('a[href*="github.com"]', 'href', CONFIG.github);
     setAttr('a[href*="linkedin.com"]', 'href', CONFIG.linkedin);
+    setAttr('a[href*="instagram.com"]', 'href', CONFIG.instagram);
     setAttr('a[href$="resume.html"]', 'href', CONFIG.resume);
 
     setText('[data-config="email"]', CONFIG.email);
     setText('[data-config="github"]', pretty(CONFIG.github));
     setText('[data-config="linkedin"]', pretty(CONFIG.linkedin));
+    setText('[data-config="instagram"]', pretty(CONFIG.instagram));
   })();
 
   /* ---------------------------------------------------------
@@ -390,6 +393,59 @@
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     requestAnimationFrame(sweep);
+  })();
+
+  /* ---------------------------------------------------------
+     HERO TERMINAL — live typing sequence
+     --------------------------------------------------------- */
+  (function heroTerminal() {
+    const term = $('#heroTerm');
+    if (!term) return;
+    const rows = Array.from(term.querySelectorAll('.term__row'));
+    if (!rows.length) return;
+
+    // static fallback: show the finished transcript, no typing
+    if (REDUCED) {
+      rows.forEach((row) => {
+        row.classList.add('is-on');
+        const cmd = row.querySelector('.term__cmd');
+        if (cmd) cmd.textContent = cmd.dataset.cmd || '';
+      });
+      return;
+    }
+
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+    const typeInto = async (el, text, speed = 62) => {
+      for (let i = 1; i <= text.length; i++) {
+        el.textContent = text.slice(0, i);
+        await sleep(speed + (text[i - 1] === ' ' ? 26 : 0));
+      }
+    };
+
+    const run = async () => {
+      for (;;) {
+        rows.forEach((row) => {
+          row.classList.remove('is-on');
+          const cmd = row.querySelector('.term__cmd');
+          if (cmd) cmd.textContent = '';
+        });
+        await sleep(500);
+        for (const row of rows) {
+          row.classList.add('is-on');
+          const cmd = row.querySelector('.term__cmd');
+          if (cmd) {
+            await typeInto(cmd, cmd.dataset.cmd || '');
+            await sleep(420);
+          } else {
+            await sleep(560);
+          }
+        }
+        await sleep(3200);
+      }
+    };
+
+    run();
   })();
 
   /* ---------------------------------------------------------
