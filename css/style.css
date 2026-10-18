@@ -572,7 +572,7 @@ html[data-theme="light"] .bar{background:rgba(27,21,48,.08)}
 html[data-theme="light"] .bar-row__val{color:#7c3aed}
 
 /* ───────── 11. PROJECTS ───────── */
-.projects__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.projects__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
 .project{padding:0;cursor:pointer;display:flex;flex-direction:column;text-align:left;color:inherit}
 .project__media{position:relative;overflow:hidden;aspect-ratio:16/10;border-bottom:1px solid var(--border)}
 .project__media img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease),filter .6s;filter:saturate(1.05)}

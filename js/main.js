@@ -25,7 +25,7 @@
      --------------------------------------------------------- */
   const PROJECTS = {
     bom: {
-      title: 'BOM & Production Control',
+      title: 'BOM-SOFTWARE',
       subtitle: 'BOM · production · sales & inventory · live browser demo',
       image: 'assets/img/project-bom.webp',
       tags: ['Electron', 'JavaScript', 'Offline-first', 'ExcelJS', 'PDF invoices'],
@@ -53,115 +53,8 @@
       demo: 'bom-software/app/index.html',
       code: 'https://github.com/ITS-ME-HASEEB/BOM-SOFTWARE'
     },
-    task: {
-      title: 'Task Manager (Kanban)',
-      subtitle: 'Drag & drop board · priorities · progress tracking',
-      image: 'assets/img/project-task.webp',
-      tags: ['HTML5', 'CSS3', 'JavaScript', 'Drag & drop', 'LocalStorage'],
-      overview:
-        'A collaborative-style task board with four columns, drag and drop, priorities, labels and a live progress bar. I use it to plan my own study sprints and side projects, and it is the same mental model that real teams use every day.',
-      features: [
-        'Four columns: Backlog, To Do, In Progress and Done',
-        'Drag and drop cards between columns with a live drop indicator',
-        'Three priority levels with colour coding',
-        'Add, edit, complete and delete tasks',
-        'Search and filter by priority or label',
-        'Live completion percentage and per-column counters',
-        'Board state saved to LocalStorage automatically'
-      ],
-      build:
-        'Written from scratch with the native HTML5 drag-and-drop API. Each card carries its column in the data object, so a drop simply updates the object and re-renders the board. I added optimistic UI so a card never “jumps” twice, and I kept the render loop in a single function to avoid state getting out of sync.',
-      learn: [
-        'Native drag-and-drop events and data transfer',
-        'Rendering lists efficiently without a framework',
-        'Designing clean data models for stateful UIs',
-        'Small UX details that make an app feel professional',
-        'Git workflow for a project that keeps growing'
-      ],
-      demo: 'task.html',
-      code: CONFIG.github
-    },
-    prompts: {
-      title: 'AI Prompt Generator',
-      subtitle: 'Template engine · prompt engineering for study & code',
-      image: 'assets/img/project-ai.webp',
-      tags: ['HTML5', 'CSS3', 'JavaScript', 'Clipboard API', 'Templates'],
-      overview:
-        'A prompt builder for my AI coursework. Pick a goal (explain a concept, debug code, write tests, summarise a topic), choose a tone and detail level, and it assembles a properly structured prompt you can copy straight into any AI assistant.',
-      features: [
-        'Six prompt families: study, coding, debugging, writing, analysis and planning',
-        'Tone and detail-level controls that rewrite the output',
-        'Fills in your own topic so every prompt is personal',
-        'One-click copy to clipboard with a confirmation toast',
-        'Randomise button for when you want a fresh angle',
-        'Keeps a history of prompts you have built this session'
-      ],
-      build:
-        'The templates live in a small structured array, and a single build function merges template text with the user’s topic, tone and detail level. The output area is a live-updating preview, and the clipboard step uses the async Clipboard API with a fallback for older browsers.',
-      learn: [
-        'What actually makes a prompt effective (role, task, context, format)',
-        'Template engines and string composition',
-        'The async Clipboard API and its fallbacks',
-        'Turning a repetitive task into a tool'
-      ],
-      demo: 'prompts.html',
-      code: CONFIG.github
-    },
-    shop: {
-      title: 'Store Operations Hub',
-      subtitle: 'Orders · inventory · complaints · invoices',
-      image: 'assets/img/project-store.webp',
-      tags: ['HTML5', 'CSS3', 'JavaScript', 'Charts', 'Print to PDF'],
-      overview:
-        'Built directly from my internship. On the job I was checking inventory, chasing orders, handling complaints and preparing invoices in four different places — so I built the tool I wish I had. One dashboard for the whole store.',
-      features: [
-        'Order pipeline with status tracking and live revenue totals',
-        'Inventory panel that flags items below their reorder level',
-        'Complaint log with severity and resolution state',
-        'Invoice generator that prints straight to PDF',
-        'Daily revenue chart and top-selling products',
-        'Filter by date range and search across every record'
-      ],
-      build:
-        'This one came from a real workplace, so I designed it around the daily routine: open it, see what is late, check the low stock, print today’s invoices. The data is stored locally so nothing sensitive leaves the machine, and the invoice uses a dedicated print stylesheet so the printed page is clean and professional.',
-      learn: [
-        'Translating a real business process into a tool',
-        'Designing a status model that mirrors how work actually flows',
-        'Print stylesheets and generating clean PDF invoices',
-        'Communicating with clients: turning complaints into fixes',
-        'Inventory and stock control for a physical store'
-      ],
-      demo: 'shop.html',
-      code: CONFIG.github
-    },
-    teaching: {
-      title: 'Teaching & Notes Hub',
-      subtitle: 'Searchable study notes · the things I teach',
-      image: 'assets/img/project-task.webp',
-      tags: ['HTML5', 'CSS3', 'JavaScript', 'Markdown', 'Search'],
-      overview:
-        'Every week I teach classmates something — HTML basics, CSS layout, JavaScript loops — and every week I rewrite the notes from scratch. This hub is where those notes live, searchable, so anyone (including future me) can find the right explanation in seconds.',
-      features: [
-        'Searchable note library with instant filtering',
-        'Category filters: HTML, CSS, JavaScript, Computer Science, AI',
-        'Reading time and “beginner / intermediate” level labels',
-        'Quick-reference cheat sheets for common syntax',
-        'Dark and light reading themes',
-        'Works offline as a single static page'
-      ],
-      build:
-        'Notes are stored as structured objects and rendered into cards with a small template function, so adding a new note is a single object rather than a copy-paste of markup. The search is a simple fuzzy-ish match across title, summary and body, and the reading view is deliberately distraction-free.',
-      learn: [
-        'Writing explanations that actually land with beginners',
-        'Structuring content so it stays maintainable',
-        'Search UX and information architecture',
-        'How much teaching a subject really teaches you'
-      ],
-      demo: 'notes.html',
-      code: CONFIG.github
-    },
     portfolio: {
-      title: 'This Portfolio Website',
+      title: 'Portfolio Website',
       subtitle: 'Hand-coded · neon dark theme · fully responsive',
       image: 'assets/img/project-portfolio.webp',
       tags: ['HTML5', 'CSS3', 'JavaScript', 'Canvas', 'Motion'],
@@ -172,12 +65,12 @@
         'Live particle canvas background that reacts to the pointer',
         'Magnetic buttons, glowing cursor light and 3D card tilt',
         'Theme switcher with remembered preference',
-        'Project modal with embedded live demos that really run',
+        'Case studies for the BOM-SOFTWARE app and this portfolio',
         'Scroll-spy navigation, progress bar and back-to-top',
         'Reduced-motion support and full keyboard accessibility'
       ],
       build:
-        'Plain HTML, CSS and JavaScript organised into design tokens, layout primitives and small components. Animations are driven by IntersectionObserver rather than scroll handlers so the page stays smooth, the canvas particle field is a single requestAnimationFrame loop, and the whole thing stays under a few hundred kilobytes with zero dependencies.',
+        'The portfolio shell is hand-coded with plain HTML, CSS and JavaScript, with no framework or build step. Animations use IntersectionObserver and a single requestAnimationFrame loop; the BOM-SOFTWARE demo and its required libraries are bundled locally.',
       learn: [
         'CSS custom properties and theming with them',
         'IntersectionObserver versus scroll event listeners',
