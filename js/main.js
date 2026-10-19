@@ -13,10 +13,10 @@
      CONFIG — lives in js/config.js (edit it there)
      --------------------------------------------------------- */
   const CONFIG = Object.assign({
-    email: 'hello@haseeb.dev',
+    email: 'haseebahmedpak8@gmail.com',
     github: 'https://github.com/ITS-ME-HASEEB',
-    linkedin: 'https://www.linkedin.com/in/its-me-haseeb',
-    instagram: 'https://www.instagram.com/ITS_ME_HASEEB',
+    linkedin: 'https://www.linkedin.com/in/haseeb-ahmed-453192324?utm_source=share_via&utm_content=profile&utm_medium=member_android',
+    instagram: 'https://www.instagram.com/haseeb._ahmed_?utm_source=qr&exln=MXZqNzdtcThpNnE5dA==',
     resume: 'resume.html'
   }, window.SITE_CONFIG || {});
 
