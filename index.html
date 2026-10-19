@@ -16,39 +16,8 @@
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="apple-touch-icon" href="assets/favicon.svg" />
-
-  <!-- Apply the saved theme and flag JS before the first paint so there is
-       no colour flash and reveal styles are only armed when JS is running. -->
-  <script>
-    (function () {
-      var root = document.documentElement;
-      root.className += ' js';
-      try {
-        var theme = localStorage.getItem('haseeb-theme');
-        if (theme) root.setAttribute('data-theme', theme);
-      } catch (e) { /* private mode */ }
-      // last-resort safety: never leave the page hidden if main.js fails
-      setTimeout(function () {
-        if (!root.classList.contains('is-ready')) {
-          root.classList.remove('js');
-          document.body.classList.remove('is-loading');
-        }
-      }, 5000);
-    })();
-  </script>
-
-  <!-- Critical assets: preload so text and the hero illustration paint in
-       one pass (no font swap, no late image pop-in). -->
-  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/fonts/sora-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/fonts/jetbrains-mono-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/fonts/dancing-script-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/img/girl-open.webp" as="image" type="image/webp" fetchpriority="high" />
-  <link rel="preload" href="assets/img/girl-blink.webp" as="image" type="image/webp" />
-
   <link rel="stylesheet" href="css/fonts.css" />
-  <link rel="stylesheet" href="css/style.css?v=2026-10-19" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="is-loading">
 
@@ -215,7 +184,7 @@
     <section class="hero" id="home">
       <div class="container hero__inner">
         <div class="hero__content">
-          <p class="hero__script reveal" data-reveal="left" data-delay="60"><span class="hero__script-in">Hello, I’m</span></p>
+          <p class="hero__script reveal" data-reveal="left" data-delay="60">Hello, I’m</p>
           <h1 class="hero__title reveal" data-reveal="left" data-delay="140">
             <span class="hero__name" data-text="HASEEB">HASEEB</span>
           </h1>
@@ -236,9 +205,9 @@
             </a>
           </div>
           <div class="hero__stats reveal" data-reveal="left" data-delay="440">
-            <div class="stat"><b class="counter" data-count="1" data-suffix="st Year">1st Year</b><span>BS AI @ Quest University</span></div>
-            <div class="stat"><b class="counter" data-count="2">2</b><span>Featured projects</span></div>
-            <div class="stat"><b class="counter" data-count="3">3</b><span>Languages: English, Urdu, Sindhi</span></div>
+            <div class="stat"><b class="counter" data-count="1" data-suffix="st Year">0</b><span>BS AI @ Quest University</span></div>
+            <div class="stat"><b class="counter" data-count="2">0</b><span>Featured projects</span></div>
+            <div class="stat"><b class="counter" data-count="3">0</b><span>Languages: English, Urdu, Sindhi</span></div>
           </div>
         </div>
 
@@ -273,8 +242,8 @@
           </div>
 
           <div class="hero__girl" aria-hidden="true">
-            <img class="hero__girl-img" src="assets/img/girl-open.webp" alt="" width="660" height="808" decoding="async" fetchpriority="high" />
-            <img class="hero__girl-img hero__girl-img--blink" src="assets/img/girl-blink.webp" alt="" width="660" height="808" decoding="async" />
+            <img class="hero__girl-img" src="assets/img/girl-open.webp" alt="" width="660" height="808" />
+            <img class="hero__girl-img hero__girl-img--blink" src="assets/img/girl-blink.webp" alt="" width="660" height="808" />
           </div>
 
           <div class="hero__chip hero__chip--1"><svg class="ico" aria-hidden="true"><use href="#i-sparkle" /></svg> HTML · CSS · JS</div>
@@ -440,9 +409,9 @@
 
         <div class="projects__grid" id="projectsGrid">
           <!-- 1 -->
-          <article class="card project reveal" data-reveal="up" data-delay="0" data-project="bom" tabindex="0" role="button" aria-label="Open BOM-SOFTWARE project">
+          <article class="card project reveal" data-reveal="up" data-delay="0"data-project="bom" tabindex="0" role="button" aria-label="Open BOM-SOFTWARE project">
             <div class="project__media">
-              <img src="assets/img/project-bom.webp" width="1000" height="545" alt="BOM and production control dashboard" loading="lazy" decoding="async" />
+              <img src="assets/img/project-bom.webp" width="1000" height="545" alt="BOM and production control dashboard" loading="lazy" />
               <span class="project__badge">Live app</span>
             </div>
             <div class="project__body">
@@ -461,7 +430,7 @@
           <!-- 2 -->
           <article class="card project reveal" data-reveal="up" data-delay="90" data-project="portfolio" tabindex="0" role="button" aria-label="Open Portfolio Website project">
             <div class="project__media">
-              <img src="assets/img/project-portfolio.webp" width="800" height="597" alt="This portfolio website" loading="lazy" decoding="async" />
+              <img src="assets/img/project-portfolio.webp" alt="This portfolio website" loading="lazy" />
               <span class="project__badge">You are here</span>
             </div>
             <div class="project__body">
@@ -776,6 +745,6 @@
   </a>
 
   <script src="js/config.js" defer></script>
-  <script src="js/main.js?v=2026-10-19" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>
