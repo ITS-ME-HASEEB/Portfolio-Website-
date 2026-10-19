@@ -175,19 +175,6 @@ Opening `index.html` directly from the file system also works, except the BOM pr
 - No trackers or external requests. The portfolio shell has no build step; the BOM demo and its required libraries are bundled locally.
 - Animations run on `IntersectionObserver` + `requestAnimationFrame` (never on scroll handlers), so scrolling stays smooth
 
-### Smoothness rules used in this build
-
-These are the rules the motion system follows — keep them if you edit the CSS/JS:
-
-1. **Animate `transform` and `opacity` only.** Anything that changes `width`, `height`, `top`, `left`, `background-position`, `filter` or `box-shadow` on a loop forces layout/paint work every frame. The background grid, skill bars and scroll bar all use transforms; the glow orbs are radial gradients rather than `filter: blur()`.
-2. **No `backdrop-filter` on large or repeating surfaces.** The header, cards, chips, terminal, drawer backdrop and modal used to blur whatever was behind them; each one is a full re-composite on every scrolled frame and costs real GPU memory. They now use near-opaque tints that look the same.
-3. **Nothing animates behind the preloader.** `main.js` has a boot gate: reveals, typing and counters start when the overlay fades, so their delay is never spent off-screen.
-4. **Reveals are CSS animations, not transitions.** They run to a real end state even if triggered late, and they never overwrite a card's hover transition.
-5. **Everything scrolled past is revealed.** A rAF-throttled sweep (measure first, write after) guarantees content above the fold is visible after fast flings and anchor jumps.
-6. **Loops sleep.** Particles, cursor light, terminal typing and text typing pause when the tab is hidden, when the hero is off-screen, or when a modal/drawer covers the page. The cursor light stops scheduling frames once it settles.
-7. **Cheap scroll path.** One passive scroll listener with hysteresis, a cached document height (`ResizeObserver`), a `scaleX` progress bar and an `IntersectionObserver` scroll-spy — no layout reads in the scroll handler.
-8. **Budget-aware extras.** `prefers-reduced-motion`, `saveData` and low-memory devices skip the particle canvas; the canvas caps its device-pixel ratio at 1.5 and its particle count by viewport.
-
 ---
 
 ## 📄 Résumé
