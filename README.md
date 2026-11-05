@@ -184,4 +184,4 @@ Opening `index.html` directly from the file system also works, except the BOM pr
 
 ---
 
-Made with 💜 in Karachi — using HTML, CSS and JavaScript.
+Made with 💜 in Nawabshah — using HTML, CSS and JavaScript.
