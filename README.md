@@ -1,6 +1,6 @@
 # 🚀 Haseeb — Portfolio Website
 
-A hand-coded, neon-dark portfolio for **Haseeb** — BS Artificial Intelligence student at **Quest University, Karachi**.
+A hand-coded, neon-dark portfolio for **Haseeb** — BS Artificial Intelligence student at **Quest University, Nawabshah**.
 
 Built with plain **HTML, CSS and JavaScript**. No frameworks, no build step or npm install — open `index.html` and it works; the BOM app’s required libraries are bundled locally.
 The two featured projects are **BOM-SOFTWARE** and this portfolio. BOM-SOFTWARE opens as an interactive live demo in the project popup, and the résumé is a real, printable document.
